@@ -4,12 +4,16 @@
  */
 package com.eksos;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import com.eksos.db.MongoDS;
 import com.eksos.models.Inventory;
-import com.mongodb.client.MongoClients;
-import dev.morphia.Morphia;
-import dev.morphia.Datastore;
 import dev.morphia.query.experimental.filters.Filters;
+import org.bson.types.ObjectId;
+import com.mongodb.client.MongoClients;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,19 +22,21 @@ import dev.morphia.query.experimental.filters.Filters;
 public class EksosApplication {
 
     private final static String DATABASE = "Eksos-DB";
+    private static EksosMenu eksosMenu;
 
     public static void main(String[] args) throws Exception {
+        ((LoggerContext) LoggerFactory.getILoggerFactory()).
+                getLogger("org.mongodb.driver").setLevel(Level.ERROR);
         String uri = "mongodb+srv://Test1:0iEylN65JkkSHrCv@clustersupply.nfdjlvo.mongodb.net";
         final Datastore datastore = Morphia.createDatastore(MongoClients.create(uri), DATABASE);
         datastore.getMapper().mapPackage("com.eksos.models");
         datastore.ensureIndexes();
         MongoDS.create(datastore);
-        Inventory producto1 = new Inventory();
-        producto1.setProductName("Leche");
-        System.out.println();
-        System.out.println("");
+        eksosMenu = new EksosMenu();
+        menuVisible();
+    }
 
-        System.out.println(datastore.find(Inventory.class)
-                .filter(Filters.eq("_id", datastore.save(producto1).get_id())).first());
+    public static void menuVisible() {
+        eksosMenu.setVisible(true);
     }
 }
