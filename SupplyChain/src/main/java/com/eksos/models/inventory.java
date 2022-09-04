@@ -4,10 +4,20 @@
  */
 package com.eksos.models;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import lombok.Data;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author erick
  */
-public class inventory {
-    
+@Data
+@Entity(value = "inventory", useDiscriminator = false)
+public class Inventory {
+
+    @Id
+    private ObjectId _id;
+    private String productName;
 }

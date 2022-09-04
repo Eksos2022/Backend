@@ -8,6 +8,6 @@ package com.eksos.models;
  *
  * @author erick
  */
-public class factory {
+public class Factory {
     
 }
