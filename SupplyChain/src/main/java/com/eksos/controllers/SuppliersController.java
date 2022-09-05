@@ -5,6 +5,7 @@
 package com.eksos.controllers;
 
 import com.eksos.db.MongoDS;
+import com.eksos.models.Supplier;
 import dev.morphia.Datastore;
 
 /**
@@ -13,6 +14,9 @@ import dev.morphia.Datastore;
  */
 public class SuppliersController {
 
- private final Datastore ds = MongoDS.getDatastore();
-    
+    private final Datastore ds = MongoDS.getDatastore();
+
+    public boolean createNewSupplier(Supplier newSupplier) {
+        return ds.save(newSupplier) != null;
+    }
 }

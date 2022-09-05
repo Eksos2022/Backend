@@ -22,6 +22,7 @@ public class Supplier {
     private ObjectId _id;
     private String supplierName;
     private String address;
+    private String tel;
     @Reference
     private List<SupplierProduct> supplierProducts;
 }
