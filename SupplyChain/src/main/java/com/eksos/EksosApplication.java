@@ -13,6 +13,8 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -32,6 +34,11 @@ public class EksosApplication {
         datastore.getMapper().mapPackage("com.eksos.models");
         datastore.ensureIndexes();
         MongoDS.create(datastore);
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.getCause();
+        }
         eksosMenu = new EksosMenu();
         menuVisible();
     }
