@@ -5,10 +5,7 @@
 package com.eksos.views;
 
 import com.eksos.db.MongoDS;
-import com.eksos.models.Inventory;
 import dev.morphia.Datastore;
-import dev.morphia.query.experimental.filters.Filters;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -66,9 +63,6 @@ public class Proveedores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ObjectId id = new ObjectId("63143e4d4798fd1ce57e3365");
-        Inventory in = ds.find(Inventory.class).filter(Filters.eq("_id", id)).first();
-        System.out.println(in.getProductName());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
