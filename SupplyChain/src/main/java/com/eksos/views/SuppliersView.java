@@ -7,13 +7,15 @@ package com.eksos.views;
 import com.eksos.db.MongoDS;
 import dev.morphia.Datastore;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 /**
  *
  * @author allec
  */
 public class SuppliersView extends javax.swing.JFrame {
-
+    
     private final Datastore ds = MongoDS.getDatastore();
 
     /**
@@ -22,6 +24,10 @@ public class SuppliersView extends javax.swing.JFrame {
     public SuppliersView() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
+        UIManager.put("ToolTip.background", new Color(0xF8FAFF));
+        UIManager.put("ToolTip.foreground", new Color(0x56595F));
+        UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 14));
+        jButtonNewSupplier.setToolTipText("Nuevo proveedor");
     }
 
     /**
@@ -33,25 +39,49 @@ public class SuppliersView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanelLeft = new javax.swing.JPanel();
+        jButtonNewSupplier = new javax.swing.JButton();
+        jButtonNewOrder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proveedores");
         setBackground(new java.awt.Color(204, 51, 255));
-        setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
+        jPanelLeft.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 20));
+
+        jButtonNewSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user-add.png"))); // NOI18N
+        jButtonNewSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonNewSupplier.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNewSupplier.setMaximumSize(new java.awt.Dimension(48, 48));
+        jButtonNewSupplier.setMinimumSize(new java.awt.Dimension(48, 48));
+        jButtonNewSupplier.setPreferredSize(new java.awt.Dimension(48, 48));
+        jButtonNewSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewSupplierActionPerformed(evt);
+            }
+        });
+        jPanelLeft.add(jButtonNewSupplier);
+
+        jButtonNewOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/box-add.png"))); // NOI18N
+        jButtonNewOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonNewOrder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanelLeft.add(jButtonNewOrder);
+
+        getContentPane().add(jPanelLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 800));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonNewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewSupplierActionPerformed
+    }//GEN-LAST:event_jButtonNewSupplierActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButtonNewOrder;
+    private javax.swing.JButton jButtonNewSupplier;
+    private javax.swing.JPanel jPanelLeft;
     // End of variables declaration//GEN-END:variables
 }
