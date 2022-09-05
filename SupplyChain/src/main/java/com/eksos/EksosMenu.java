@@ -4,11 +4,11 @@
  */
 package com.eksos;
 
-import com.eksos.views.Proveedores;
+import com.eksos.views.SuppliersView;
 
 /**
  *
- * @author allec
+ * @author Allecan
  */
 public class EksosMenu extends javax.swing.JFrame {
 
@@ -33,8 +33,10 @@ public class EksosMenu extends javax.swing.JFrame {
         ButtonProveedores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Menu de Eksos");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 247, -1, -1));
 
         ButtonProveedores.setText("Proveedores");
         ButtonProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -42,36 +44,13 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonProveedoresActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(525, 525, 525)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(341, 341, 341)
-                        .addComponent(ButtonProveedores)))
-                .addContainerGap(572, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(ButtonProveedores)
-                .addGap(53, 53, 53)
-                .addComponent(jLabel1)
-                .addContainerGap(436, Short.MAX_VALUE))
-        );
+        getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 168, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProveedoresActionPerformed
-        Proveedores frame = new Proveedores();
+        SuppliersView frame = new SuppliersView();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
