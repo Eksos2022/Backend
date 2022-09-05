@@ -4,10 +4,25 @@
  */
 package com.eksos.models;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.*;
+import java.util.List;
+import lombok.Data;
+import org.bson.types.ObjectId;
+
 /**
  *
- * @author erick
+ * @author Allecan
  */
+@Data
+@Entity(value = "supplier", useDiscriminator = false)
 public class Supplier {
-    
+
+    @Id
+    private ObjectId _id;
+    private String supplierName;
+    private String address;
+    private String tel;
+    @Reference
+    private List<SupplierProduct> supplierProducts;
 }

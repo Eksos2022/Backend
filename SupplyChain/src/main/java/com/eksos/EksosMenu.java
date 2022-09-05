@@ -4,17 +4,11 @@
  */
 package com.eksos;
 
-import com.eksos.views.Proveedores;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import com.eksos.views.SuppliersView;
 
 /**
  *
- * @author allec
+ * @author Allecan
  */
 public class EksosMenu extends javax.swing.JFrame {
 
@@ -56,7 +50,7 @@ public class EksosMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProveedoresActionPerformed
-        Proveedores frame = new Proveedores();
+        SuppliersView frame = new SuppliersView();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
