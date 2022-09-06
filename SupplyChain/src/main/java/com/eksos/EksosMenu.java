@@ -31,40 +31,74 @@ public class EksosMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ButtonProveedores = new javax.swing.JButton();
         jButtonInventory = new javax.swing.JButton();
         jButtonFactory = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Menu de Eksos");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 247, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ButtonProveedores.setText("Proveedores");
+        jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Almacén");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, -1, -1));
+
+        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/proveedor-96.png"))); // NOI18N
+        ButtonProveedores.setContentAreaFilled(false);
         ButtonProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonProveedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
+        jPanel1.add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
-        jButtonInventory.setText("Inventario");
+        jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/almacén-100.png"))); // NOI18N
+        jButtonInventory.setContentAreaFilled(false);
         jButtonInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInventoryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, -1, -1));
+        jPanel1.add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, -1, -1));
 
-        jButtonFactory.setText("Fabrica");
+        jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fábrica-96.png"))); // NOI18N
+        jButtonFactory.setContentAreaFilled(false);
         jButtonFactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFactoryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, -1, -1));
+        jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Menu de Eksos");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Proveedores");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Fábrica");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/azul.png"))); // NOI18N
+        jLabel9.setInheritsPopupMenu(false);
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 470, 340, 670));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -92,5 +126,10 @@ public class EksosMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonFactory;
     private javax.swing.JButton jButtonInventory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

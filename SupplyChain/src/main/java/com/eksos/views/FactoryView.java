@@ -6,9 +6,12 @@ package com.eksos.views;
 
 import com.eksos.EksosMenu;
 import com.eksos.controllers.FactoryController;
+import com.eksos.controllers.MaterialReceivedController;
 import com.eksos.models.FactoryModel;
+import com.eksos.models.MaterialsReceived;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -19,12 +22,14 @@ import javax.swing.UIManager;
 public class FactoryView extends javax.swing.JFrame {
     
     FactoryController controller = new FactoryController();
+    MaterialReceivedController mrc = new MaterialReceivedController();
 
     /**
      * Creates new form FactoryView
      */
     public FactoryView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -36,6 +41,8 @@ public class FactoryView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItemRecibed = new javax.swing.JMenuItem();
         jPanelLeft = new javax.swing.JPanel();
         jButtonPendingOrders = new javax.swing.JButton();
         jButtonnewOrder = new javax.swing.JButton();
@@ -54,6 +61,14 @@ public class FactoryView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
         jButtonSendOrder = new javax.swing.JButton();
+
+        jMenuItemRecibed.setText("Confirmar Recibido");
+        jMenuItemRecibed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecibedActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemRecibed);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 800));
@@ -98,6 +113,11 @@ public class FactoryView extends javax.swing.JFrame {
                 "Producto", "Descripción", "Cantidad"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanelPendingOrders.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 920, 710));
@@ -174,11 +194,15 @@ public class FactoryView extends javax.swing.JFrame {
             model.setAmount(amout);
             model.setDescription(description);
             try {
-                if(controller.AddOrder(model));
-                JOptionPane.showMessageDialog(null, "Oreden enviada a Alamacen");
+                if(controller.AddOrder(model)){
+                JOptionPane.showMessageDialog(null, "Orden enviada a Alamacen");
                 jTextFieldRawMaterial.setText("");
                 jTextFieldAmount.setText("");
                 jTextAreaDescription.setText("");
+                }
+                else{
+                 JOptionPane.showMessageDialog(null, "No se pudo enviar la orden");
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
@@ -188,6 +212,35 @@ public class FactoryView extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButtonSendOrderActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        if(evt.getButton()==MouseEvent.BUTTON3){
+            if(evt.isPopupTrigger() && jTable1.getSelectedRow()!=0){
+                jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jMenuItemRecibedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecibedActionPerformed
+        int row = jTable1.getSelectedRow();
+        if(row != -1){
+            String material = jTable1.getValueAt(row, 0).toString();
+            String description = jTable1.getValueAt(row, 1).toString();
+            String amout = jTable1.getValueAt(row, 2).toString();
+            String id = jTable1.getValueAt(row, -1).toString();
+            MaterialsReceived receivedModel = new MaterialsReceived();
+            receivedModel.setProduct_name(material);
+            receivedModel.setDescription(description);
+            receivedModel.setAmount(amout);
+            try {
+                if(mrc.ConfirmOrder(receivedModel))
+                  JOptionPane.showMessageDialog(null, "Materia Prima Confirmada"); 
+                  
+                
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_jMenuItemRecibedActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPendingOrders;
@@ -199,9 +252,11 @@ public class FactoryView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JMenuItem jMenuItemRecibed;
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelNewOrder;
     private javax.swing.JPanel jPanelPendingOrders;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
