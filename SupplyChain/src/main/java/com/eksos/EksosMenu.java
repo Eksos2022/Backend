@@ -76,13 +76,13 @@ public class EksosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
 
     private void jButtonInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventoryActionPerformed
-        FactoryView frame = new FactoryView();
+        InventoryView frame = new InventoryView();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonInventoryActionPerformed
 
     private void jButtonFactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFactoryActionPerformed
-        InventoryView frame = new InventoryView();
+        FactoryView frame = new FactoryView();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonFactoryActionPerformed
