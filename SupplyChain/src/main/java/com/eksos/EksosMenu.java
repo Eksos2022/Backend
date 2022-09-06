@@ -4,6 +4,7 @@
  */
 package com.eksos;
 
+import com.eksos.views.FactoryView;
 import com.eksos.views.SuppliersView;
 
 /**
@@ -31,6 +32,7 @@ public class EksosMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         ButtonProveedores = new javax.swing.JButton();
+        jButtonfactory = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,6 +48,14 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 168, -1, -1));
 
+        jButtonfactory.setText("Fábrica");
+        jButtonfactory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonfactoryActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonfactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -55,8 +65,15 @@ public class EksosMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
 
+    private void jButtonfactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonfactoryActionPerformed
+        FactoryView frame  = new FactoryView();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonfactoryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonProveedores;
+    private javax.swing.JButton jButtonfactory;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
