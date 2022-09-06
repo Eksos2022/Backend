@@ -10,6 +10,8 @@ import com.eksos.models.Supplier;
 import com.eksos.models.SupplierProduct;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.UIManager;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class SuppliersView extends javax.swing.JFrame {
 
     private SuppliersController controller = new SuppliersController();
+    private List<SupplierProduct> mpProducts = new ArrayList<>();
 
     /**
      * Creates new form Proveedores
@@ -76,6 +79,16 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jComboBoxSupplier = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldCant = new javax.swing.JTextField();
+        jButtonCancelOrder = new javax.swing.JButton();
+        jButtonSendOrder = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabelOrderPrice1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabelMPPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proveedores");
@@ -158,9 +171,9 @@ public class SuppliersView extends javax.swing.JFrame {
         jPanelSupplier.add(jTextFieldTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 400, 40));
 
         jButtonSaveSupplier.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jButtonSaveSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         jButtonSaveSupplier.setText("Guardar");
-        jButtonSaveSupplier.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButtonSaveSupplier.setBorderPainted(false);
+        jButtonSaveSupplier.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSaveSupplier.setIconTextGap(16);
         jButtonSaveSupplier.setMargin(new java.awt.Insets(4, 8, 4, 8));
         jButtonSaveSupplier.addActionListener(new java.awt.event.ActionListener() {
@@ -182,18 +195,20 @@ public class SuppliersView extends javax.swing.JFrame {
         jPanelSupplier.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
+        jButtonCancel.setBorderPainted(false);
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
             }
         });
-        jPanelSupplier.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, -1, 48));
+        jPanelSupplier.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 48, 48));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel6.setText("Nombre del proveedor");
         jPanelSupplier.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
 
         jButtonNewProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
+        jButtonNewProduct.setBorderPainted(false);
         jButtonNewProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewProductActionPerformed(evt);
@@ -256,6 +271,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jButtonStoreProduct.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jButtonStoreProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-right.png"))); // NOI18N
         jButtonStoreProduct.setText("Agregar");
+        jButtonStoreProduct.setBorderPainted(false);
         jButtonStoreProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jButtonStoreProduct.setIconTextGap(5);
         jButtonStoreProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -270,6 +286,7 @@ public class SuppliersView extends javax.swing.JFrame {
 
         jPanelOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jComboBoxMP.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jPanelOrder.add(jComboBoxMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 400, 40));
 
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
@@ -277,14 +294,67 @@ public class SuppliersView extends javax.swing.JFrame {
         jPanelOrder.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jLabel12.setText("Escoger MP (Máximo 1)");
-        jPanelOrder.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
+        jLabel12.setText("Precio total del pedido");
+        jPanelOrder.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 200, 32));
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel13.setText("Escoger proveedor");
         jPanelOrder.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
 
+        jComboBoxSupplier.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jComboBoxSupplier.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboBoxSupplierFocusLost(evt);
+            }
+        });
         jPanelOrder.add(jComboBoxSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel14.setText("Precio unitario");
+        jPanelOrder.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 200, 32));
+
+        jTextFieldCant.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelOrder.add(jTextFieldCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 400, 40));
+
+        jButtonCancelOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
+        jButtonCancelOrder.setBorderPainted(false);
+        jButtonCancelOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelOrderActionPerformed(evt);
+            }
+        });
+        jPanelOrder.add(jButtonCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 48, 48));
+
+        jButtonSendOrder.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jButtonSendOrder.setText("Enviar orden");
+        jButtonSendOrder.setBorderPainted(false);
+        jButtonSendOrder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSendOrder.setIconTextGap(16);
+        jButtonSendOrder.setMargin(new java.awt.Insets(4, 8, 4, 8));
+        jButtonSendOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendOrderActionPerformed(evt);
+            }
+        });
+        jPanelOrder.add(jButtonSendOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 140, 48));
+
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel15.setText("Cantidad de MP");
+        jPanelOrder.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 200, 32));
+
+        jLabel7.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
+        jLabel7.setText("GTQ.");
+        jPanelOrder.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 40, 40));
+
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel16.setText("Escoger MP (Máximo 1)");
+        jPanelOrder.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
+        jPanelOrder.add(jLabelOrderPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 180, 40));
+
+        jLabel8.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
+        jLabel8.setText("GTQ.");
+        jPanelOrder.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 40, 40));
+        jPanelOrder.add(jLabelMPPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 180, 40));
 
         jLayeredPane.add(jPanelOrder);
         jPanelOrder.setBounds(0, 0, 1120, 800);
@@ -296,13 +366,19 @@ public class SuppliersView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewSupplierActionPerformed
+        initalComponentsState();
         jPanelSupplier.setVisible(true);
         jPanelOrder.setVisible(false);
     }//GEN-LAST:event_jButtonNewSupplierActionPerformed
 
     private void jButtonNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewOrderActionPerformed
+        initalComponentsState();
         jPanelSupplier.setVisible(false);
         jPanelOrder.setVisible(true);
+        List<String> suppliers = controller.getAllSuppliersNames();
+        for (String supplier : suppliers) {
+            jComboBoxSupplier.addItem(supplier);
+        }
     }//GEN-LAST:event_jButtonNewOrderActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -375,14 +451,28 @@ public class SuppliersView extends javax.swing.JFrame {
         initalComponentsState();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    private void jButtonCancelOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCancelOrderActionPerformed
+
+    private void jButtonSendOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSendOrderActionPerformed
+
+    private void jComboBoxSupplierFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxSupplierFocusLost
+        System.out.println(jComboBoxSupplier.getSelectedItem().toString());
+    }//GEN-LAST:event_jComboBoxSupplierFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonCancelOrder;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNewOrder;
     private javax.swing.JButton jButtonNewProduct;
     private javax.swing.JButton jButtonNewSupplier;
     private javax.swing.JButton jButtonOrders;
     private javax.swing.JButton jButtonSaveSupplier;
+    private javax.swing.JButton jButtonSendOrder;
     private javax.swing.JButton jButtonStoreProduct;
     private javax.swing.JComboBox<String> jComboBoxMP;
     private javax.swing.JComboBox<String> jComboBoxSupplier;
@@ -390,13 +480,20 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelDimensional;
+    private javax.swing.JLabel jLabelMPPrice;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelOrderPrice1;
     private javax.swing.JLabel jLabelPrice;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanelLeft;
@@ -405,6 +502,7 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldAddres;
+    private javax.swing.JTextField jTextFieldCant;
     private javax.swing.JTextField jTextFieldDimensional;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldName;
@@ -425,6 +523,8 @@ public class SuppliersView extends javax.swing.JFrame {
         jPanelOrder.setBackground(Color.WHITE);
         jButtonSaveSupplier.setBackground(new Color(0x0C31A6));
         jButtonSaveSupplier.setForeground(Color.WHITE);
+        jButtonSendOrder.setBackground(new Color(0x0C31A6));
+        jButtonSendOrder.setForeground(Color.WHITE);
         jPanelSupplier.setVisible(false);
         jPanelOrder.setVisible(false);
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
@@ -448,6 +548,23 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldPrice.setText("");
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         tableModel.setRowCount(0);
-//        jComboDia.removeAllItems();
+        jComboBoxMP.removeAllItems();
+        jComboBoxSupplier.removeAllItems();
+        jComboBoxSupplier.addItemListener(new ItemChangeListener());
+    }
+
+    class ItemChangeListener implements ItemListener {
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                jComboBoxMP.removeAllItems();
+                Object item = event.getItem();
+                List<String> products = controller.getSupplierProducts(item.toString());
+                for (String product : products) {
+                    jComboBoxMP.addItem(product);
+                }
+            }
+        }
     }
 }
