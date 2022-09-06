@@ -27,6 +27,7 @@ public class InventoryView extends javax.swing.JFrame {
     
     public InventoryView() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setUIProperties();
         rawmaterial = new RawMaterialController();
         factoryorders = new FactoryController();

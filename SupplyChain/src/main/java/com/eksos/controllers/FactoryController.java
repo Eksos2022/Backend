@@ -41,4 +41,8 @@ public class FactoryController {
         return model;
     }
     
+    public void DeleteOrder(String deleted){
+        
+    }
+    
 }

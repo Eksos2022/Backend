@@ -35,6 +35,7 @@ public class SuppliersView extends javax.swing.JFrame {
      */
     public SuppliersView() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setUIProperties();
         initalComponentsState();
     }
