@@ -23,6 +23,7 @@ public class Supplier {
     private String supplierName;
     private String address;
     private String tel;
+    private String email;
     @Reference
     private List<SupplierProduct> supplierProducts;
 }

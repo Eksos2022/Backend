@@ -6,12 +6,14 @@ package com.eksos.views;
 
 import com.eksos.EksosMenu;
 import com.eksos.controllers.SuppliersController;
-import com.eksos.db.MongoDS;
 import com.eksos.models.Supplier;
-import dev.morphia.Datastore;
+import com.eksos.models.SupplierProduct;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,6 +29,7 @@ public class SuppliersView extends javax.swing.JFrame {
     public SuppliersView() {
         initComponents();
         setUIProperties();
+        initalComponentsState();
     }
 
     /**
@@ -41,6 +44,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jPanelLeft = new javax.swing.JPanel();
         jButtonNewSupplier = new javax.swing.JButton();
         jButtonNewOrder = new javax.swing.JButton();
+        jButtonOrders = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
         jLayeredPane = new javax.swing.JLayeredPane();
         jPanelSupplier = new javax.swing.JPanel();
@@ -51,8 +55,27 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldAddres = new javax.swing.JTextField();
         jTextFieldTel = new javax.swing.JTextField();
         jButtonSaveSupplier = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldEmail = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jButtonCancel = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jButtonNewProduct = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableProducts = new javax.swing.JTable();
+        jLabelName = new javax.swing.JLabel();
+        jTextFieldName = new javax.swing.JTextField();
+        jLabelDimensional = new javax.swing.JLabel();
+        jTextFieldDimensional = new javax.swing.JTextField();
+        jLabelPrice = new javax.swing.JLabel();
+        jTextFieldPrice = new javax.swing.JTextField();
+        jButtonStoreProduct = new javax.swing.JButton();
         jPanelOrder = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jComboBoxMP = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jComboBoxSupplier = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proveedores");
@@ -78,7 +101,11 @@ public class SuppliersView extends javax.swing.JFrame {
 
         jButtonNewOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/box-add.png"))); // NOI18N
         jButtonNewOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonNewOrder.setDisabledIcon(null);
         jButtonNewOrder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNewOrder.setMaximumSize(new java.awt.Dimension(50, 50));
+        jButtonNewOrder.setMinimumSize(new java.awt.Dimension(50, 50));
+        jButtonNewOrder.setPreferredSize(new java.awt.Dimension(50, 50));
         jButtonNewOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewOrderActionPerformed(evt);
@@ -86,7 +113,18 @@ public class SuppliersView extends javax.swing.JFrame {
         });
         jPanelLeft.add(jButtonNewOrder);
 
+        jButtonOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/myorders.png"))); // NOI18N
+        jButtonOrders.setDisabledIcon(null);
+        jButtonOrders.setMaximumSize(new java.awt.Dimension(50, 50));
+        jButtonOrders.setMinimumSize(new java.awt.Dimension(50, 50));
+        jButtonOrders.setPreferredSize(new java.awt.Dimension(50, 50));
+        jPanelLeft.add(jButtonOrders);
+
         jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home-2.png"))); // NOI18N
+        jButtonHome.setDisabledIcon(null);
+        jButtonHome.setMaximumSize(new java.awt.Dimension(50, 50));
+        jButtonHome.setMinimumSize(new java.awt.Dimension(50, 50));
+        jButtonHome.setPreferredSize(new java.awt.Dimension(50, 50));
         jButtonHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonHomeActionPerformed(evt);
@@ -98,42 +136,155 @@ public class SuppliersView extends javax.swing.JFrame {
 
         jPanelSupplier.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jLabel1.setText("Nombre del proveedor");
-        jPanelSupplier.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 200, 32));
+        jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
+        jLabel1.setText("Añadir producto");
+        jPanelSupplier.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 200, 40));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel2.setText("Dirección completa");
-        jPanelSupplier.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 200, 32));
+        jPanelSupplier.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel3.setText("Número de contacto");
-        jPanelSupplier.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 152, 200, 32));
+        jPanelSupplier.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 200, 32));
 
         jTextFieldSupplier.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelSupplier.add(jTextFieldSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 400, 32));
+        jPanelSupplier.add(jTextFieldSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
 
         jTextFieldAddres.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelSupplier.add(jTextFieldAddres, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 400, 32));
+        jPanelSupplier.add(jTextFieldAddres, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 400, 40));
 
         jTextFieldTel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelSupplier.add(jTextFieldTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 192, 400, 32));
+        jPanelSupplier.add(jTextFieldTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 400, 40));
 
-        jButtonSaveSupplier.setText("Guardar proveedor");
+        jButtonSaveSupplier.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jButtonSaveSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+        jButtonSaveSupplier.setText("Guardar");
+        jButtonSaveSupplier.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButtonSaveSupplier.setIconTextGap(16);
+        jButtonSaveSupplier.setMargin(new java.awt.Insets(4, 8, 4, 8));
         jButtonSaveSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveSupplierActionPerformed(evt);
             }
         });
-        jPanelSupplier.add(jButtonSaveSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, -1, -1));
+        jPanelSupplier.add(jButtonSaveSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 140, 48));
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel4.setText("Correo electrónico");
+        jPanelSupplier.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 200, 32));
+
+        jTextFieldEmail.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 400, 40));
+
+        jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel5.setText("Nuevo proveedor");
+        jPanelSupplier.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+        jPanelSupplier.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, -1, 48));
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel6.setText("Nombre del proveedor");
+        jPanelSupplier.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
+
+        jButtonNewProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
+        jButtonNewProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewProductActionPerformed(evt);
+            }
+        });
+        jPanelSupplier.add(jButtonNewProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 40, 40));
+
+        jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTableProducts.setForeground(new java.awt.Color(0, 0, 0));
+        jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descripción", "Tipo de medida", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableProducts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableProducts.setShowGrid(false);
+        jTableProducts.setShowHorizontalLines(true);
+        jTableProducts.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableProducts);
+        if (jTableProducts.getColumnModel().getColumnCount() > 0) {
+            jTableProducts.getColumnModel().getColumn(2).setMinWidth(120);
+            jTableProducts.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTableProducts.getColumnModel().getColumn(2).setMaxWidth(120);
+        }
+
+        jPanelSupplier.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 580, 370));
+
+        jLabelName.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelName.setText("Descripción");
+        jPanelSupplier.add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 200, 32));
+
+        jTextFieldName.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 400, 40));
+
+        jLabelDimensional.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelDimensional.setText("Tipo de medida");
+        jPanelSupplier.add(jLabelDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 200, 32));
+
+        jTextFieldDimensional.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 400, 40));
+
+        jLabelPrice.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelPrice.setText("Precio");
+        jPanelSupplier.add(jLabelPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 200, 32));
+
+        jTextFieldPrice.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 660, 400, 40));
+
+        jButtonStoreProduct.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jButtonStoreProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-right.png"))); // NOI18N
+        jButtonStoreProduct.setText("Agregar");
+        jButtonStoreProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jButtonStoreProduct.setIconTextGap(5);
+        jButtonStoreProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStoreProductActionPerformed(evt);
+            }
+        });
+        jPanelSupplier.add(jButtonStoreProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 730, 130, 40));
 
         jLayeredPane.add(jPanelSupplier);
         jPanelSupplier.setBounds(0, 0, 1120, 800);
 
         jPanelOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToggleButton1.setText("jToggleButton1");
-        jPanelOrder.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
+        jPanelOrder.add(jComboBoxMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 400, 40));
+
+        jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel11.setText("Nueva orden");
+        jPanelOrder.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel12.setText("Escoger MP (Máximo 1)");
+        jPanelOrder.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
+
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel13.setText("Escoger proveedor");
+        jPanelOrder.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
+
+        jPanelOrder.add(jComboBoxSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
 
         jLayeredPane.add(jPanelOrder);
         jPanelOrder.setBounds(0, 0, 1120, 800);
@@ -164,33 +315,102 @@ public class SuppliersView extends javax.swing.JFrame {
         String name = jTextFieldSupplier.getText();
         String address = jTextFieldAddres.getText();
         String tel = jTextFieldTel.getText();
+        String email = jTextFieldEmail.getText();
         Supplier supplier = new Supplier();
         supplier.setSupplierName(name);
         supplier.setAddress(address);
         supplier.setTel(tel);
+        supplier.setEmail(email);
+
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
+        List<SupplierProduct> supplierProducts = new ArrayList<>();
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            SupplierProduct supplierProduct = new SupplierProduct();
+            for (int column = 0; column < tableModel.getColumnCount(); column++) {
+                if (column == 0) {
+                    supplierProduct.setName(tableModel.getValueAt(row, column).toString());
+                } else if (column == 1) {
+                    supplierProduct.setDimensional(tableModel.getValueAt(row, column).toString());
+                } else if (column == 2) {
+                    supplierProduct.setPrice(Double.valueOf(tableModel.getValueAt(row, column).toString()));
+                }
+            }
+            controller.creatNewSupplierProduct(supplierProduct);
+            supplierProducts.add(supplierProduct);
+        }
+        if (!supplierProducts.isEmpty()) {
+            supplier.setSupplierProducts(supplierProducts);
+        }
+
         if (controller.createNewSupplier(supplier)) {
             System.out.println("Si se ingreso");
         } else {
             System.out.println("No se ingreso");
         }
+        initalComponentsState();
     }//GEN-LAST:event_jButtonSaveSupplierActionPerformed
 
+    private void jButtonNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewProductActionPerformed
+        jLabelName.setVisible(true);
+        jTextFieldName.setVisible(true);
+        jLabelDimensional.setVisible(true);
+        jTextFieldDimensional.setVisible(true);
+        jLabelPrice.setVisible(true);
+        jTextFieldPrice.setVisible(true);
+        jScrollPane1.setVisible(true);
+        jButtonStoreProduct.setVisible(true);
+    }//GEN-LAST:event_jButtonNewProductActionPerformed
+
+    private void jButtonStoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreProductActionPerformed
+        String data[] = {jTextFieldName.getText(),
+            jTextFieldDimensional.getText(), jTextFieldPrice.getText()};
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
+        tableModel.addRow(data);
+        jTextFieldName.setText("");
+        jTextFieldDimensional.setText("");
+        jTextFieldPrice.setText("");
+    }//GEN-LAST:event_jButtonStoreProductActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        initalComponentsState();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNewOrder;
+    private javax.swing.JButton jButtonNewProduct;
     private javax.swing.JButton jButtonNewSupplier;
+    private javax.swing.JButton jButtonOrders;
     private javax.swing.JButton jButtonSaveSupplier;
+    private javax.swing.JButton jButtonStoreProduct;
+    private javax.swing.JComboBox<String> jComboBoxMP;
+    private javax.swing.JComboBox<String> jComboBoxSupplier;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelDimensional;
+    private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelPrice;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelOrder;
     private javax.swing.JPanel jPanelSupplier;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldAddres;
+    private javax.swing.JTextField jTextFieldDimensional;
+    private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldPrice;
     private javax.swing.JTextField jTextFieldSupplier;
     private javax.swing.JTextField jTextFieldTel;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
     private void setUIProperties() {
@@ -203,7 +423,31 @@ public class SuppliersView extends javax.swing.JFrame {
         UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 14));
         jPanelSupplier.setBackground(Color.WHITE);
         jPanelOrder.setBackground(Color.WHITE);
+        jButtonSaveSupplier.setBackground(new Color(0x0C31A6));
+        jButtonSaveSupplier.setForeground(Color.WHITE);
         jPanelSupplier.setVisible(false);
         jPanelOrder.setVisible(false);
+        jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
+    }
+
+    private void initalComponentsState() {
+        jLabelName.setVisible(false);
+        jTextFieldName.setVisible(false);
+        jLabelDimensional.setVisible(false);
+        jTextFieldDimensional.setVisible(false);
+        jLabelPrice.setVisible(false);
+        jTextFieldPrice.setVisible(false);
+        jScrollPane1.setVisible(false);
+        jButtonStoreProduct.setVisible(false);
+        jTextFieldSupplier.setText("");
+        jTextFieldAddres.setText("");
+        jTextFieldTel.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldName.setText("");
+        jTextFieldDimensional.setText("");
+        jTextFieldPrice.setText("");
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
+        tableModel.setRowCount(0);
+//        jComboDia.removeAllItems();
     }
 }
