@@ -17,6 +17,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author allec
  */
 public class SuppliersView extends javax.swing.JFrame {
-
+    
     private SuppliersController controller = new SuppliersController();
     private OrderController orderController = new OrderController();
     private List<SupplierProduct> mpProducts = new ArrayList<>();
@@ -474,7 +476,7 @@ public class SuppliersView extends javax.swing.JFrame {
         supplier.setAddress(address);
         supplier.setTel(tel);
         supplier.setEmail(email);
-
+        
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         List<SupplierProduct> supplierProducts = new ArrayList<>();
         for (int row = 0; row < tableModel.getRowCount(); row++) {
@@ -494,7 +496,7 @@ public class SuppliersView extends javax.swing.JFrame {
         if (!supplierProducts.isEmpty()) {
             supplier.setSupplierProducts(supplierProducts);
         }
-
+        
         if (controller.createNewSupplier(supplier)) {
             System.out.println("Si se ingreso");
         } else {
@@ -674,7 +676,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jTableOrders.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
         jLabelOrderPrice.setForeground(new Color(0x00E9A3));
     }
-
+    
     private void initalComponentsState() {
         jLabelName.setVisible(false);
         jTextFieldName.setVisible(false);
@@ -694,18 +696,27 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabelMPPrice.setText("");
         jLabelOrderPrice.setText("");
         jTextFieldCant.setText("");
+        
         DefaultTableModel tableModelProducts = (DefaultTableModel) jTableProducts.getModel();
         tableModelProducts.setRowCount(0);
         DefaultTableModel tableModelOrder = (DefaultTableModel) jTableOrders.getModel();
         tableModelOrder.setRowCount(0);
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem seeOrder = new JMenuItem("Ver orden");
+        JMenuItem cancelOrder = new JMenuItem("Cancelar orden");
+        popupMenu.add(seeOrder);
+        popupMenu.add(cancelOrder);
+        jTableOrders.setComponentPopupMenu(popupMenu);
+        
         jComboBoxMP.removeAllItems();
         jComboBoxSupplier.removeAllItems();
         jComboBoxSupplier.addItemListener(new SupplierChangeListener());
         jComboBoxMP.addItemListener(new MPChangeListener());
     }
-
+    
     class SupplierChangeListener implements ItemListener {
-
+        
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -719,9 +730,9 @@ public class SuppliersView extends javax.swing.JFrame {
             }
         }
     }
-
+    
     class MPChangeListener implements ItemListener {
-
+        
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
