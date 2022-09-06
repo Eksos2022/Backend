@@ -4,6 +4,7 @@
  */
 package com.eksos.views;
 
+import com.eksos.EksosMenu;
 import com.eksos.controllers.FactoryController;
 import com.eksos.controllers.RawMaterialController;
 import com.eksos.db.MongoDS;
@@ -20,10 +21,10 @@ import javax.swing.UIManager;
  * @author ljrp3
  */
 public class InventoryView extends javax.swing.JFrame {
-
-    RawMaterialController rawmaterial; 
+    
+    RawMaterialController rawmaterial;    
     FactoryController factoryorders;
-            
+    
     public InventoryView() {
         initComponents();
         setUIProperties();
@@ -43,6 +44,7 @@ public class InventoryView extends javax.swing.JFrame {
         jPanelLeft = new javax.swing.JPanel();
         JButtonViewInventory = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButtonHome = new javax.swing.JButton();
         Jpanelinventario = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableInventory = new javax.swing.JTable();
@@ -79,6 +81,18 @@ public class InventoryView extends javax.swing.JFrame {
             }
         });
         jPanelLeft.add(jButton1);
+
+        jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home-2.png"))); // NOI18N
+        jButtonHome.setDisabledIcon(null);
+        jButtonHome.setMaximumSize(new java.awt.Dimension(50, 50));
+        jButtonHome.setMinimumSize(new java.awt.Dimension(50, 50));
+        jButtonHome.setPreferredSize(new java.awt.Dimension(50, 50));
+        jButtonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHomeActionPerformed(evt);
+            }
+        });
+        jPanelLeft.add(jButtonHome);
 
         getContentPane().add(jPanelLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 800));
 
@@ -221,10 +235,11 @@ public class InventoryView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
                 .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cantidadpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(productopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codigopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cantidadpedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(productopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +260,7 @@ public class InventoryView extends javax.swing.JFrame {
         TableInventory.setModel(rawmaterial.seeRawMaterialsInventory());
         TableInventory.setAutoCreateRowSorter(true);
         
-        
+
     }//GEN-LAST:event_JButtonViewInventoryActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -271,20 +286,20 @@ public class InventoryView extends javax.swing.JFrame {
     }//GEN-LAST:event_enviarActionPerformed
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-       int filaseleccionada;
-       String nombrep;
-        try{
+        int filaseleccionada;
+        String nombrep;
+        try {
             //Guardamos en un entero la fila seleccionada.
             filaseleccionada = TablePedidos.getSelectedRow();
-            if (filaseleccionada == -1){
+            if (filaseleccionada == -1) {
                 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
             } else {
 
                 //String ayuda = tabla.getValueAt(filaseleccionada, num_columna).toString()); 
 //                String codigo = (String)TablePedidos.getValueAt(filaseleccionada, 0);
-                String nombre = (String)TablePedidos.getValueAt(filaseleccionada, 0);
-                String descripcion = (String)TablePedidos.getValueAt(filaseleccionada, 1);
-                String inventariot = (String)TablePedidos.getValueAt(filaseleccionada, 2);
+                String nombre = (String) TablePedidos.getValueAt(filaseleccionada, 0);
+                String descripcion = (String) TablePedidos.getValueAt(filaseleccionada, 1);
+                String inventariot = (String) TablePedidos.getValueAt(filaseleccionada, 2);
 //                String stock = (String)TableInv.getValueAt(filaseleccionada, 3);
                 
                 cantidadpedido.setText(inventariot);
@@ -293,8 +308,8 @@ public class InventoryView extends javax.swing.JFrame {
                 productopedido.setEditable(false);
                 
             }
-        }catch (HeadlessException ex){
-            JOptionPane.showMessageDialog(null, "Error: "+ex+"\nInténtelo nuevamente", " .::Error En la Operacion::." ,JOptionPane.ERROR_MESSAGE);
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", " .::Error En la Operacion::.", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_anadirActionPerformed
 
@@ -306,40 +321,12 @@ public class InventoryView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codigopedidoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventoryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventoryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventoryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventoryView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
+        dispose();
+        EksosMenu menu = new EksosMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_jButtonHomeActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InventoryView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonViewInventory;
@@ -354,6 +341,7 @@ public class InventoryView extends javax.swing.JFrame {
     private javax.swing.JTextField codigopedido;
     private javax.swing.JButton enviar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JScrollPane jScrollPane1;
@@ -363,6 +351,7 @@ public class InventoryView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void setUIProperties() {
+        this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.WHITE);
         UIManager.put("ToolTip.background", new Color(0xF8FAFF));
         UIManager.put("ToolTip.foreground", new Color(0x56595F));
@@ -373,6 +362,5 @@ public class InventoryView extends javax.swing.JFrame {
         PanelPedido.setBackground(Color.WHITE);
         PanelPedido.setVisible(false);
     }
-
-
+    
 }
