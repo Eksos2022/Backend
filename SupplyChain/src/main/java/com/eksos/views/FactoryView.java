@@ -122,7 +122,7 @@ public class FactoryView extends javax.swing.JFrame {
         jPanelNewOrder.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jLabel3.setText("Matria Prima");
+        jLabel3.setText("Materia Prima");
         jPanelNewOrder.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
         jPanelNewOrder.add(jTextFieldRawMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 220, -1));
         jPanelNewOrder.add(jTextFieldAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 220, -1));

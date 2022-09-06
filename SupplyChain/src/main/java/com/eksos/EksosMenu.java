@@ -4,11 +4,8 @@
  */
 package com.eksos;
 
-<<<<<<< HEAD
 import com.eksos.views.FactoryView;
-=======
 import com.eksos.views.InventoryView;
->>>>>>> 3bcec677379ea5ebff157e35ee4d7764001f0ce3
 import com.eksos.views.SuppliersView;
 
 /**
@@ -36,11 +33,8 @@ public class EksosMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         ButtonProveedores = new javax.swing.JButton();
-<<<<<<< HEAD
         jButtonfactory = new javax.swing.JButton();
-=======
         jButton1 = new javax.swing.JButton();
->>>>>>> 3bcec677379ea5ebff157e35ee4d7764001f0ce3
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,7 +50,6 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 168, -1, -1));
 
-<<<<<<< HEAD
         jButtonfactory.setText("Fábrica");
         jButtonfactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +57,6 @@ public class EksosMenu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonfactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, -1, -1));
-=======
         jButton1.setText("Inventario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +64,6 @@ public class EksosMenu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, -1, -1));
->>>>>>> 3bcec677379ea5ebff157e35ee4d7764001f0ce3
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,7 +74,6 @@ public class EksosMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
 
-<<<<<<< HEAD
     private void jButtonfactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonfactoryActionPerformed
         FactoryView frame  = new FactoryView();
         frame.setVisible(true);
@@ -91,9 +81,6 @@ public class EksosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonfactoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonProveedores;
-    private javax.swing.JButton jButtonfactory;
-=======
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         InventoryView frame = new InventoryView();
         frame.setVisible(true);
@@ -101,9 +88,9 @@ public class EksosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonfactory;
     private javax.swing.JButton ButtonProveedores;
     private javax.swing.JButton jButton1;
->>>>>>> 3bcec677379ea5ebff157e35ee4d7764001f0ce3
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
