@@ -21,20 +21,20 @@ public class RawMaterialController {
     
         public DefaultTableModel seeRawMaterialsInventory() {
         DefaultTableModel modelTable = new DefaultTableModel();
-        modelTable.addColumn("Código");
-        modelTable.addColumn("Nombre");
+//        modelTable.addColumn("Código");
+        modelTable.addColumn("Producto");
         modelTable.addColumn("Inventario Total");
         modelTable.addColumn("Stock");
         
 
         List<RawMaterials> materials = ds.find(RawMaterials.class).iterator().toList();
-        String[] datos = new String[7];
+        String[] datos = new String[3];
 
         for (int i = 0; i < materials.size(); i++) {
-            datos[0] = materials.get(i).get_id().toString();
-            datos[1] = materials.get(i).getName();
-            datos[2] = materials.get(i).getTotalInventory().toString();
-            datos[3] = materials.get(i).getStock().toString();
+//            datos[0] = materials.get(i).get_id().toString();
+            datos[0] = materials.get(i).getName();
+            datos[1] = materials.get(i).getTotalInventory().toString();
+            datos[2] = materials.get(i).getStock().toString();
             
   
            

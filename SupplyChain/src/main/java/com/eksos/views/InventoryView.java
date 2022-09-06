@@ -4,6 +4,7 @@
  */
 package com.eksos.views;
 
+import com.eksos.controllers.FactoryController;
 import com.eksos.controllers.RawMaterialController;
 import com.eksos.db.MongoDS;
 import com.eksos.models.RawMaterials;
@@ -21,11 +22,13 @@ import javax.swing.UIManager;
 public class InventoryView extends javax.swing.JFrame {
 
     RawMaterialController rawmaterial; 
+    FactoryController factoryorders;
             
     public InventoryView() {
         initComponents();
         setUIProperties();
         rawmaterial = new RawMaterialController();
+        factoryorders = new FactoryController();
     }
 
     /**
@@ -46,18 +49,20 @@ public class InventoryView extends javax.swing.JFrame {
         PanelPedido = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablePedidos = new javax.swing.JTable();
-        textfieldenviar = new javax.swing.JTextField();
+        productopedido = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableInv = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         enviar = new javax.swing.JButton();
-        textfieldstock = new javax.swing.JTextField();
+        cantidadpedido = new javax.swing.JTextField();
         anadir = new javax.swing.JButton();
+        cantidadenviar = new javax.swing.JTextField();
+        codigopedido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelLeft.setLayout(new java.awt.FlowLayout(1, 40, 20));
+        jPanelLeft.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 20));
 
         JButtonViewInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/box-search.png"))); // NOI18N
         JButtonViewInventory.addActionListener(new java.awt.event.ActionListener() {
@@ -103,8 +108,8 @@ public class InventoryView extends javax.swing.JFrame {
             JpanelinventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelinventarioLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         getContentPane().add(Jpanelinventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 1120, 800));
@@ -122,9 +127,9 @@ public class InventoryView extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(TablePedidos);
 
-        textfieldenviar.addActionListener(new java.awt.event.ActionListener() {
+        productopedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldenviarActionPerformed(evt);
+                productopedidoActionPerformed(evt);
             }
         });
 
@@ -142,7 +147,7 @@ public class InventoryView extends javax.swing.JFrame {
         jScrollPane3.setViewportView(TableInv);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel1.setText("Cantidad a Enviar");
+        jLabel1.setText("PEDIDO");
 
         enviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/box-tick.png"))); // NOI18N
         enviar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,9 +156,9 @@ public class InventoryView extends javax.swing.JFrame {
             }
         });
 
-        textfieldstock.addActionListener(new java.awt.event.ActionListener() {
+        cantidadpedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfieldstockActionPerformed(evt);
+                cantidadpedidoActionPerformed(evt);
             }
         });
 
@@ -161,6 +166,18 @@ public class InventoryView extends javax.swing.JFrame {
         anadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anadirActionPerformed(evt);
+            }
+        });
+
+        cantidadenviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadenviarActionPerformed(evt);
+            }
+        });
+
+        codigopedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigopedidoActionPerformed(evt);
             }
         });
 
@@ -174,23 +191,24 @@ public class InventoryView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
+            .addGroup(PanelPedidoLayout.createSequentialGroup()
+                .addGap(496, 496, 496)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPedidoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(codigopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(productopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPedidoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(208, 208, 208))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPedidoLayout.createSequentialGroup()
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(textfieldenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(textfieldstock, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(193, 193, 193))))
+                    .addComponent(cantidadpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cantidadenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(216, 216, 216))
         );
         PanelPedidoLayout.setVerticalGroup(
             PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,18 +217,20 @@ public class InventoryView extends javax.swing.JFrame {
                 .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
-                .addGap(53, 53, 53)
-                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelPedidoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textfieldstock, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(textfieldenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cantidadpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(productopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(codigopedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(anadir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cantidadenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 1120, 800));
@@ -233,17 +253,18 @@ public class InventoryView extends javax.swing.JFrame {
         PanelPedido.setVisible(true);
         TableInv.setModel(rawmaterial.seeRawMaterialsInventory());
         TableInv.setAutoCreateRowSorter(true);
-        System.out.println(TableInv.getSelectedColumn());
+        TablePedidos.setModel(factoryorders.getOrders());
+        TablePedidos.setAutoCreateRowSorter(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void textfieldenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldenviarActionPerformed
+    private void productopedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productopedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldenviarActionPerformed
+    }//GEN-LAST:event_productopedidoActionPerformed
 
-    private void textfieldstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfieldstockActionPerformed
+    private void cantidadpedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadpedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textfieldstockActionPerformed
+    }//GEN-LAST:event_cantidadpedidoActionPerformed
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
         // TODO add your handling code here:
@@ -251,27 +272,39 @@ public class InventoryView extends javax.swing.JFrame {
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
        int filaseleccionada;
+       String nombrep;
         try{
             //Guardamos en un entero la fila seleccionada.
-            filaseleccionada = TableInv.getSelectedRow();
+            filaseleccionada = TablePedidos.getSelectedRow();
             if (filaseleccionada == -1){
                 JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.");
             } else {
 
                 //String ayuda = tabla.getValueAt(filaseleccionada, num_columna).toString()); 
-                String codigo = (String)TableInv.getValueAt(filaseleccionada, 0);
-                String nombre = (String)TableInv.getValueAt(filaseleccionada, 1);
-                String inventariot = (String)TableInv.getValueAt(filaseleccionada, 2);
-                String stock = (String)TableInv.getValueAt(filaseleccionada, 3);
+//                String codigo = (String)TablePedidos.getValueAt(filaseleccionada, 0);
+                String nombre = (String)TablePedidos.getValueAt(filaseleccionada, 0);
+                String descripcion = (String)TablePedidos.getValueAt(filaseleccionada, 1);
+                String inventariot = (String)TablePedidos.getValueAt(filaseleccionada, 2);
+//                String stock = (String)TableInv.getValueAt(filaseleccionada, 3);
                 
-                textfieldstock.setText(inventariot);
-                textfieldstock.setEnabled(false);
+                cantidadpedido.setText(inventariot);
+                cantidadpedido.setEnabled(false);
+                productopedido.setText(nombre);
+                productopedido.setEditable(false);
                 
             }
         }catch (HeadlessException ex){
             JOptionPane.showMessageDialog(null, "Error: "+ex+"\nInténtelo nuevamente", " .::Error En la Operacion::." ,JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_anadirActionPerformed
+
+    private void cantidadenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadenviarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadenviarActionPerformed
+
+    private void codigopedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigopedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigopedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +349,9 @@ public class InventoryView extends javax.swing.JFrame {
     private javax.swing.JTable TableInventory;
     private javax.swing.JTable TablePedidos;
     private javax.swing.JButton anadir;
+    private javax.swing.JTextField cantidadenviar;
+    private javax.swing.JTextField cantidadpedido;
+    private javax.swing.JTextField codigopedido;
     private javax.swing.JButton enviar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -323,8 +359,7 @@ public class InventoryView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField textfieldenviar;
-    private javax.swing.JTextField textfieldstock;
+    private javax.swing.JTextField productopedido;
     // End of variables declaration//GEN-END:variables
 
     private void setUIProperties() {
