@@ -6,6 +6,7 @@ package com.eksos.views;
 
 import com.eksos.EksosMenu;
 import com.eksos.controllers.OrderController;
+import static com.eksos.controllers.OrderController.convertTime;
 import com.eksos.controllers.SuppliersController;
 import com.eksos.models.Order;
 import com.eksos.models.Supplier;
@@ -76,7 +77,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabelPrice = new javax.swing.JLabel();
         jTextFieldPrice = new javax.swing.JTextField();
         jButtonStoreProduct = new javax.swing.JButton();
-        jPanelOrder = new javax.swing.JPanel();
+        jPanelNewOrder = new javax.swing.JPanel();
         jComboBoxMP = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -95,6 +96,11 @@ public class SuppliersView extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel17 = new javax.swing.JLabel();
         jLabelMPDimensional = new javax.swing.JLabel();
+        jPanelOrders = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableOrders = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        jButtonRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proveedores");
@@ -137,6 +143,11 @@ public class SuppliersView extends javax.swing.JFrame {
         jButtonOrders.setMaximumSize(new java.awt.Dimension(50, 50));
         jButtonOrders.setMinimumSize(new java.awt.Dimension(50, 50));
         jButtonOrders.setPreferredSize(new java.awt.Dimension(50, 50));
+        jButtonOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdersActionPerformed(evt);
+            }
+        });
         jPanelLeft.add(jButtonOrders);
 
         jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home-2.png"))); // NOI18N
@@ -290,31 +301,31 @@ public class SuppliersView extends javax.swing.JFrame {
         jLayeredPane.add(jPanelSupplier);
         jPanelSupplier.setBounds(0, 0, 1120, 800);
 
-        jPanelOrder.setFocusCycleRoot(true);
-        jPanelOrder.setFocusTraversalPolicyProvider(true);
-        jPanelOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelNewOrder.setFocusCycleRoot(true);
+        jPanelNewOrder.setFocusTraversalPolicyProvider(true);
+        jPanelNewOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBoxMP.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelOrder.add(jComboBoxMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 400, 40));
+        jPanelNewOrder.add(jComboBoxMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 400, 40));
 
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel11.setText("Nueva orden de MP");
-        jPanelOrder.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanelNewOrder.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel12.setText("Precio total del pedido");
-        jPanelOrder.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 200, 32));
+        jPanelNewOrder.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 200, 32));
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel13.setText("Escoger proveedor");
-        jPanelOrder.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
+        jPanelNewOrder.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
 
         jComboBoxSupplier.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelOrder.add(jComboBoxSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
+        jPanelNewOrder.add(jComboBoxSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel14.setText("Medida");
-        jPanelOrder.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 200, 32));
+        jPanelNewOrder.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 200, 32));
 
         jTextFieldCant.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jTextFieldCant.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -322,7 +333,7 @@ public class SuppliersView extends javax.swing.JFrame {
                 jTextFieldCantKeyReleased(evt);
             }
         });
-        jPanelOrder.add(jTextFieldCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 400, 40));
+        jPanelNewOrder.add(jTextFieldCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 400, 40));
 
         jButtonCancelOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         jButtonCancelOrder.setBorderPainted(false);
@@ -331,7 +342,7 @@ public class SuppliersView extends javax.swing.JFrame {
                 jButtonCancelOrderActionPerformed(evt);
             }
         });
-        jPanelOrder.add(jButtonCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 48, 48));
+        jPanelNewOrder.add(jButtonCancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 48, 48));
 
         jButtonSendOrder.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jButtonSendOrder.setText("Enviar orden");
@@ -344,40 +355,84 @@ public class SuppliersView extends javax.swing.JFrame {
                 jButtonSendOrderActionPerformed(evt);
             }
         });
-        jPanelOrder.add(jButtonSendOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 140, 48));
+        jPanelNewOrder.add(jButtonSendOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 140, 48));
 
         jLabel15.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel15.setText("Cantidad de MP");
-        jPanelOrder.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 200, 32));
+        jPanelNewOrder.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 200, 32));
 
         jLabel7.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 24)); // NOI18N
         jLabel7.setText("GTQ.");
-        jPanelOrder.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 70, 40));
+        jPanelNewOrder.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 70, 40));
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel16.setText("Escoger MP (Máximo 1)");
-        jPanelOrder.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
+        jPanelNewOrder.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 200, 32));
 
         jLabelOrderPrice.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jPanelOrder.add(jLabelOrderPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 180, 40));
+        jPanelNewOrder.add(jLabelOrderPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 180, 40));
 
         jLabel8.setFont(new java.awt.Font("Lucida Sans Unicode", 1, 14)); // NOI18N
         jLabel8.setText("GTQ.");
-        jPanelOrder.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 40, 40));
+        jPanelNewOrder.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 40, 40));
 
         jLabelMPPrice.setFont(new java.awt.Font("SansSerif", 2, 16)); // NOI18N
-        jPanelOrder.add(jLabelMPPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 140, 40));
-        jPanelOrder.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 260, 30));
+        jPanelNewOrder.add(jLabelMPPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 140, 40));
+        jPanelNewOrder.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 260, 30));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel17.setText("Precio unitario");
-        jPanelOrder.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 200, 32));
+        jPanelNewOrder.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 200, 32));
 
         jLabelMPDimensional.setFont(new java.awt.Font("SansSerif", 2, 16)); // NOI18N
-        jPanelOrder.add(jLabelMPDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 140, 40));
+        jPanelNewOrder.add(jLabelMPDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 140, 40));
 
-        jLayeredPane.add(jPanelOrder);
-        jPanelOrder.setBounds(0, 0, 1120, 800);
+        jLayeredPane.add(jPanelNewOrder);
+        jPanelNewOrder.setBounds(0, 0, 1120, 800);
+
+        jPanelOrders.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTableOrders.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTableOrders.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Proveedor", "Fecha pedido", "Fecha de llegada", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableOrders);
+        if (jTableOrders.getColumnModel().getColumnCount() > 0) {
+            jTableOrders.getColumnModel().getColumn(0).setMinWidth(80);
+            jTableOrders.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTableOrders.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
+
+        jPanelOrders.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 1040, 680));
+
+        jLabel18.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel18.setText("Ordenes recientes");
+        jPanelOrders.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jButtonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh-circle.png"))); // NOI18N
+        jButtonRefresh.setBorderPainted(false);
+        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefreshActionPerformed(evt);
+            }
+        });
+        jPanelOrders.add(jButtonRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 48, 48));
+
+        jLayeredPane.add(jPanelOrders);
+        jPanelOrders.setBounds(0, 0, 1120, 800);
 
         getContentPane().add(jLayeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 1120, 800));
 
@@ -388,13 +443,15 @@ public class SuppliersView extends javax.swing.JFrame {
     private void jButtonNewSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewSupplierActionPerformed
         initalComponentsState();
         jPanelSupplier.setVisible(true);
-        jPanelOrder.setVisible(false);
+        jPanelNewOrder.setVisible(false);
+        jPanelOrders.setVisible(false);
     }//GEN-LAST:event_jButtonNewSupplierActionPerformed
 
     private void jButtonNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewOrderActionPerformed
         initalComponentsState();
         jPanelSupplier.setVisible(false);
-        jPanelOrder.setVisible(true);
+        jPanelNewOrder.setVisible(true);
+        jPanelOrders.setVisible(false);
         List<String> suppliers = controller.getAllSuppliersNames();
         for (String supplier : suppliers) {
             jComboBoxSupplier.addItem(supplier);
@@ -485,7 +542,7 @@ public class SuppliersView extends javax.swing.JFrame {
         newOrder.setSupplier(controller.getSupplier(supplierName));
         newOrder.setTotalPrice(Double.valueOf(totalPrice));
         newOrder.setAmount(Integer.valueOf(amount));
-        newOrder.setStatus(Order.OrderStatus.SENT);
+        newOrder.setStatus(Order.OrderStatus.UNDER_REVIEW);
         newOrder.setMp(controller.getMPbyName(mpName));
         if (orderController.createNewOrder(newOrder)) {
             System.out.println("Si se ingreso");
@@ -506,6 +563,39 @@ public class SuppliersView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCantKeyReleased
 
+    private void jButtonOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdersActionPerformed
+        initalComponentsState();
+        jPanelSupplier.setVisible(false);
+        jPanelNewOrder.setVisible(false);
+        jPanelOrders.setVisible(true);
+        List<Order> orders = orderController.getAllOrders();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableOrders.getModel();
+        for (Order order : orders) {
+            String data[] = new String[5];
+            data[0] = order.getNumberOfOrder();
+            data[1] = order.getSupplier().getSupplierName();
+            data[2] = convertTime(order.getDateOfOrder());
+            data[3] = convertTime(order.getDateOfArrival());
+            data[4] = order.getStatus().toString();
+            tableModel.addRow(data);
+        }
+    }//GEN-LAST:event_jButtonOrdersActionPerformed
+
+    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
+        initalComponentsState();
+        List<Order> orders = orderController.getAllOrders();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableOrders.getModel();
+        for (Order order : orders) {
+            String data[] = new String[5];
+            data[0] = order.getNumberOfOrder();
+            data[1] = order.getSupplier().getSupplierName();
+            data[2] = convertTime(order.getDateOfOrder());
+            data[3] = convertTime(order.getDateOfArrival());
+            data[4] = order.getStatus().toString();
+            tableModel.addRow(data);
+        }
+    }//GEN-LAST:event_jButtonRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonCancelOrder;
@@ -514,6 +604,7 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNewProduct;
     private javax.swing.JButton jButtonNewSupplier;
     private javax.swing.JButton jButtonOrders;
+    private javax.swing.JButton jButtonRefresh;
     private javax.swing.JButton jButtonSaveSupplier;
     private javax.swing.JButton jButtonSendOrder;
     private javax.swing.JButton jButtonStoreProduct;
@@ -527,6 +618,7 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -542,10 +634,13 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPrice;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanelLeft;
-    private javax.swing.JPanel jPanelOrder;
+    private javax.swing.JPanel jPanelNewOrder;
+    private javax.swing.JPanel jPanelOrders;
     private javax.swing.JPanel jPanelSupplier;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTableOrders;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldAddres;
     private javax.swing.JTextField jTextFieldCant;
@@ -566,14 +661,17 @@ public class SuppliersView extends javax.swing.JFrame {
         jButtonHome.setToolTipText("Regresar al menu");
         UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 14));
         jPanelSupplier.setBackground(Color.WHITE);
-        jPanelOrder.setBackground(Color.WHITE);
+        jPanelNewOrder.setBackground(Color.WHITE);
+        jPanelOrders.setBackground(Color.WHITE);
         jButtonSaveSupplier.setBackground(new Color(0x0C31A6));
         jButtonSaveSupplier.setForeground(Color.WHITE);
         jButtonSendOrder.setBackground(new Color(0x0C31A6));
         jButtonSendOrder.setForeground(Color.WHITE);
         jPanelSupplier.setVisible(false);
-        jPanelOrder.setVisible(false);
+        jPanelNewOrder.setVisible(false);
+        jPanelOrders.setVisible(false);
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
+        jTableOrders.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
         jLabelOrderPrice.setForeground(new Color(0x00E9A3));
     }
 
@@ -596,8 +694,10 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabelMPPrice.setText("");
         jLabelOrderPrice.setText("");
         jTextFieldCant.setText("");
-        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
-        tableModel.setRowCount(0);
+        DefaultTableModel tableModelProducts = (DefaultTableModel) jTableProducts.getModel();
+        tableModelProducts.setRowCount(0);
+        DefaultTableModel tableModelOrder = (DefaultTableModel) jTableOrders.getModel();
+        tableModelOrder.setRowCount(0);
         jComboBoxMP.removeAllItems();
         jComboBoxSupplier.removeAllItems();
         jComboBoxSupplier.addItemListener(new SupplierChangeListener());
