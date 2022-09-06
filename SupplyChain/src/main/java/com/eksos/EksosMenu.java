@@ -4,6 +4,8 @@
  */
 package com.eksos;
 
+import com.eksos.views.FactoryView;
+import com.eksos.views.InventoryView;
 import com.eksos.views.SuppliersView;
 
 /**
@@ -31,6 +33,8 @@ public class EksosMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         ButtonProveedores = new javax.swing.JButton();
+        jButtonInventory = new javax.swing.JButton();
+        jButtonFactory = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,7 +48,23 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonProveedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(341, 168, -1, -1));
+        getContentPane().add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
+
+        jButtonInventory.setText("Inventario");
+        jButtonInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInventoryActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, -1, -1));
+
+        jButtonFactory.setText("Fabrica");
+        jButtonFactory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFactoryActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -55,8 +75,22 @@ public class EksosMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_ButtonProveedoresActionPerformed
 
+    private void jButtonInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventoryActionPerformed
+        FactoryView frame = new FactoryView();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonInventoryActionPerformed
+
+    private void jButtonFactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFactoryActionPerformed
+        InventoryView frame = new InventoryView();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonFactoryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonProveedores;
+    private javax.swing.JButton jButtonFactory;
+    private javax.swing.JButton jButtonInventory;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
