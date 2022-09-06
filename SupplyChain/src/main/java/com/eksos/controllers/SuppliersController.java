@@ -37,6 +37,7 @@ public class SuppliersController {
         return suppliersNames;
     }
 
+    // esto se tiene que convertir a objects
     public List<String> getSupplierProducts(String supplierName) {
         Supplier supplier = ds.find(Supplier.class)
                 .filter(Filters.eq("supplierName", supplierName))
@@ -48,5 +49,19 @@ public class SuppliersController {
             mpNames.add(supplierProduct.getName());
         }
         return mpNames;
+    }
+
+    public Supplier getSupplier(String supplierName) {
+        Supplier supplier = ds.find(Supplier.class)
+                .filter(Filters.eq("supplierName", supplierName))
+                .first();
+        return supplier;
+    }
+
+    public SupplierProduct getMPbyName(String mpName) {
+        SupplierProduct mp = ds.find(SupplierProduct.class)
+                .filter(Filters.eq("name", mpName))
+                .first();
+        return mp;
     }
 }
