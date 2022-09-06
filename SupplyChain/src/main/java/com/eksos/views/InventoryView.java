@@ -265,6 +265,7 @@ public class InventoryView extends javax.swing.JFrame {
                 String stock = (String)TableInv.getValueAt(filaseleccionada, 3);
                 
                 textfieldstock.setText(inventariot);
+                textfieldstock.setEnabled(false);
                 
             }
         }catch (HeadlessException ex){
