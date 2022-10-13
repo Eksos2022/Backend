@@ -39,7 +39,10 @@ public class EksosMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        ButtonCharts = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        ButtonMRP = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -52,7 +55,7 @@ public class EksosMenu extends javax.swing.JFrame {
         jLabel1.setText("Almacén");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, -1, -1));
 
-        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/proveedor-96.png"))); // NOI18N
+        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/compras.png"))); // NOI18N
         ButtonProveedores.setContentAreaFilled(false);
         ButtonProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +64,7 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         jPanel1.add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
-        jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/almacén-100.png"))); // NOI18N
+        jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/almacen.png"))); // NOI18N
         jButtonInventory.setContentAreaFilled(false);
         jButtonInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,14 +73,14 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, -1, -1));
 
-        jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fábrica-96.png"))); // NOI18N
+        jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/produccion.png"))); // NOI18N
         jButtonFactory.setContentAreaFilled(false);
         jButtonFactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFactoryActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -86,17 +89,41 @@ public class EksosMenu extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Proveedores");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+        jLabel3.setText("Gráficos");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 590, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fábrica");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/azul.png"))); // NOI18N
-        jLabel9.setInheritsPopupMenu(false);
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 470, 340, 670));
+        ButtonCharts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/graficas.png"))); // NOI18N
+        ButtonCharts.setContentAreaFilled(false);
+        ButtonCharts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonChartsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ButtonCharts, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 450, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Compras");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
+
+        ButtonMRP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/mrp.png"))); // NOI18N
+        ButtonMRP.setContentAreaFilled(false);
+        ButtonMRP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonMRPActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ButtonMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("MRP");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
@@ -121,7 +148,17 @@ public class EksosMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonFactoryActionPerformed
 
+    private void ButtonChartsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonChartsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonChartsActionPerformed
+
+    private void ButtonMRPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMRPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonMRPActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCharts;
+    private javax.swing.JButton ButtonMRP;
     private javax.swing.JButton ButtonProveedores;
     private javax.swing.JButton jButtonFactory;
     private javax.swing.JButton jButtonInventory;
@@ -129,7 +166,8 @@ public class EksosMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
