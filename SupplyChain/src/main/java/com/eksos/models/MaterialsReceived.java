@@ -14,10 +14,11 @@ import org.bson.types.ObjectId;
  * @author erick
  */
 @Data
-@Entity(value = "inventory", useDiscriminator = false)
-public class Inventory {
-
+@Entity(value="materials_received", useDiscriminator=false)
+public class MaterialsReceived {
     @Id
     private ObjectId _id;
-    private String productName;
+    private String product_name;
+    private String description;
+    private String amount;
 }
