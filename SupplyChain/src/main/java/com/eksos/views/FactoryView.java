@@ -20,7 +20,7 @@ import javax.swing.UIManager;
  * @author erick
  */
 public class FactoryView extends javax.swing.JFrame {
-    
+
     FactoryController controller = new FactoryController();
     MaterialReceivedController mrc = new MaterialReceivedController();
 
@@ -196,6 +196,8 @@ public class FactoryView extends javax.swing.JFrame {
             try {
                 if(controller.AddOrder(model)){
                 JOptionPane.showMessageDialog(null, "Orden enviada a Alamacen");
+                if (controller.AddOrder(model));
+                JOptionPane.showMessageDialog(null, "Oreden enviada a Alamacen");
                 jTextFieldRawMaterial.setText("");
                 jTextFieldAmount.setText("");
                 jTextAreaDescription.setText("");
@@ -206,11 +208,11 @@ public class FactoryView extends javax.swing.JFrame {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No debe tener campos vacíos");
         }
-        
-        
+
+
     }//GEN-LAST:event_jButtonSendOrderActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased

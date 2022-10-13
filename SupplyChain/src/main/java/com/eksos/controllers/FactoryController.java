@@ -31,7 +31,7 @@ public class FactoryController {
         model.addColumn("Cantidad");
         List<FactoryModel> orders = db.find(FactoryModel.class)
                 .iterator().toList();
-        String[] datos = new String[3];
+        String[] datos = new String[7];
         for(int i = 0; i < orders.size(); i++){
             datos[0] = orders.get(i).getProduct_name();
             datos[1] = orders.get(i).getDescription();
