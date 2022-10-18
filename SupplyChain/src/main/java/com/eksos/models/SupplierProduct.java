@@ -22,4 +22,6 @@ public class SupplierProduct {
     private String name;
     private String dimensional;
     private Double price;
+    private Integer deliveryTime;
+    private Integer batch;
 }

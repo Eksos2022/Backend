@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author allec
  */
 public class SuppliersView extends javax.swing.JFrame {
-    
+
     private SuppliersController controller = new SuppliersController();
     private OrderController orderController = new OrderController();
     private List<SupplierProduct> mpProducts = new ArrayList<>();
@@ -75,11 +75,15 @@ public class SuppliersView extends javax.swing.JFrame {
         jTableProducts = new javax.swing.JTable();
         jLabelName = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
-        jLabelDimensional = new javax.swing.JLabel();
+        jLabelBatch = new javax.swing.JLabel();
         jTextFieldDimensional = new javax.swing.JTextField();
         jLabelPrice = new javax.swing.JLabel();
         jTextFieldPrice = new javax.swing.JTextField();
         jButtonStoreProduct = new javax.swing.JButton();
+        jLabelDimensional = new javax.swing.JLabel();
+        jTextFieldBatch = new javax.swing.JTextField();
+        jTextFieldDeliveryTime = new javax.swing.JTextField();
+        jLabelDeliveryTime = new javax.swing.JLabel();
         jPanelNewOrder = new javax.swing.JPanel();
         jComboBoxMP = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -243,11 +247,11 @@ public class SuppliersView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descripción", "Tipo de medida", "Precio"
+                "Descripción", "Medida", "Precio", "TS (semanas)", "Cant. x Lote"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -274,19 +278,19 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldName.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jPanelSupplier.add(jTextFieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 400, 40));
 
-        jLabelDimensional.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jLabelDimensional.setText("Tipo de medida");
-        jPanelSupplier.add(jLabelDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 200, 32));
+        jLabelBatch.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelBatch.setText("Cantidad por Lote");
+        jPanelSupplier.add(jLabelBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 620, 180, 32));
 
         jTextFieldDimensional.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelSupplier.add(jTextFieldDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 400, 40));
+        jPanelSupplier.add(jTextFieldDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 180, 40));
 
         jLabelPrice.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabelPrice.setText("Precio");
-        jPanelSupplier.add(jLabelPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 200, 32));
+        jPanelSupplier.add(jLabelPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 510, 80, 32));
 
         jTextFieldPrice.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelSupplier.add(jTextFieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 660, 400, 40));
+        jPanelSupplier.add(jTextFieldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 550, 180, 40));
 
         jButtonStoreProduct.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jButtonStoreProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-right.png"))); // NOI18N
@@ -300,6 +304,20 @@ public class SuppliersView extends javax.swing.JFrame {
             }
         });
         jPanelSupplier.add(jButtonStoreProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 730, 130, 40));
+
+        jLabelDimensional.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelDimensional.setText("Tipo de medida");
+        jPanelSupplier.add(jLabelDimensional, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 140, 32));
+
+        jTextFieldBatch.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 660, 180, 40));
+
+        jTextFieldDeliveryTime.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldDeliveryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 660, 180, 40));
+
+        jLabelDeliveryTime.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelDeliveryTime.setText("Tiempo de Suministro");
+        jPanelSupplier.add(jLabelDeliveryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 180, 32));
 
         jLayeredPane.add(jPanelSupplier);
         jPanelSupplier.setBounds(0, 0, 1120, 800);
@@ -477,7 +495,7 @@ public class SuppliersView extends javax.swing.JFrame {
         supplier.setAddress(address);
         supplier.setTel(tel);
         supplier.setEmail(email);
-        
+
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         List<SupplierProduct> supplierProducts = new ArrayList<>();
         for (int row = 0; row < tableModel.getRowCount(); row++) {
@@ -489,6 +507,10 @@ public class SuppliersView extends javax.swing.JFrame {
                     supplierProduct.setDimensional(tableModel.getValueAt(row, column).toString());
                 } else if (column == 2) {
                     supplierProduct.setPrice(Double.valueOf(tableModel.getValueAt(row, column).toString()));
+                } else if (column == 3) {
+                    supplierProduct.setDeliveryTime(Integer.valueOf(tableModel.getValueAt(row, column).toString()));
+                } else if (column == 4) {
+                    supplierProduct.setBatch(Integer.valueOf(tableModel.getValueAt(row, column).toString()));
                 }
             }
             controller.creatNewSupplierProduct(supplierProduct);
@@ -497,7 +519,7 @@ public class SuppliersView extends javax.swing.JFrame {
         if (!supplierProducts.isEmpty()) {
             supplier.setSupplierProducts(supplierProducts);
         }
-        
+
         if (controller.createNewSupplier(supplier)) {
             System.out.println("Si se ingreso");
         } else {
@@ -513,18 +535,25 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldDimensional.setVisible(true);
         jLabelPrice.setVisible(true);
         jTextFieldPrice.setVisible(true);
+        jLabelDeliveryTime.setVisible(true);
+        jTextFieldDeliveryTime.setVisible(true);
+        jLabelBatch.setVisible(true);
+        jTextFieldBatch.setVisible(true);
         jScrollPane1.setVisible(true);
         jButtonStoreProduct.setVisible(true);
     }//GEN-LAST:event_jButtonNewProductActionPerformed
 
     private void jButtonStoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreProductActionPerformed
         String data[] = {jTextFieldName.getText(),
-            jTextFieldDimensional.getText(), jTextFieldPrice.getText()};
+            jTextFieldDimensional.getText(), jTextFieldPrice.getText(),
+            jTextFieldDeliveryTime.getText(), jTextFieldBatch.getText()};
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         tableModel.addRow(data);
         jTextFieldName.setText("");
         jTextFieldDimensional.setText("");
         jTextFieldPrice.setText("");
+        jTextFieldDeliveryTime.setText("");
+        jTextFieldBatch.setText("");
     }//GEN-LAST:event_jButtonStoreProductActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
@@ -629,6 +658,8 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelBatch;
+    private javax.swing.JLabel jLabelDeliveryTime;
     private javax.swing.JLabel jLabelDimensional;
     private javax.swing.JLabel jLabelMPDimensional;
     private javax.swing.JLabel jLabelMPPrice;
@@ -646,7 +677,9 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JTable jTableOrders;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldAddres;
+    private javax.swing.JTextField jTextFieldBatch;
     private javax.swing.JTextField jTextFieldCant;
+    private javax.swing.JTextField jTextFieldDeliveryTime;
     private javax.swing.JTextField jTextFieldDimensional;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldName;
@@ -677,7 +710,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jTableOrders.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
         jLabelOrderPrice.setForeground(new Color(0x00E9A3));
     }
-    
+
     private void initalComponentsState() {
         jLabelName.setVisible(false);
         jTextFieldName.setVisible(false);
@@ -685,6 +718,10 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldDimensional.setVisible(false);
         jLabelPrice.setVisible(false);
         jTextFieldPrice.setVisible(false);
+        jLabelDeliveryTime.setVisible(false);
+        jTextFieldDeliveryTime.setVisible(false);
+        jLabelBatch.setVisible(false);
+        jTextFieldBatch.setVisible(false);
         jScrollPane1.setVisible(false);
         jButtonStoreProduct.setVisible(false);
         jTextFieldSupplier.setText("");
@@ -697,27 +734,27 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabelMPPrice.setText("");
         jLabelOrderPrice.setText("");
         jTextFieldCant.setText("");
-        
+
         DefaultTableModel tableModelProducts = (DefaultTableModel) jTableProducts.getModel();
         tableModelProducts.setRowCount(0);
         DefaultTableModel tableModelOrder = (DefaultTableModel) jTableOrders.getModel();
         tableModelOrder.setRowCount(0);
-        
+
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem seeOrder = new JMenuItem("Ver orden");
         JMenuItem cancelOrder = new JMenuItem("Cancelar orden");
         popupMenu.add(seeOrder);
         popupMenu.add(cancelOrder);
         jTableOrders.setComponentPopupMenu(popupMenu);
-        
+
         jComboBoxMP.removeAllItems();
         jComboBoxSupplier.removeAllItems();
         jComboBoxSupplier.addItemListener(new SupplierChangeListener());
         jComboBoxMP.addItemListener(new MPChangeListener());
     }
-    
+
     class SupplierChangeListener implements ItemListener {
-        
+
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -731,9 +768,9 @@ public class SuppliersView extends javax.swing.JFrame {
             }
         }
     }
-    
+
     class MPChangeListener implements ItemListener {
-        
+
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
