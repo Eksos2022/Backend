@@ -6,6 +6,8 @@ package com.eksos;
 
 import com.eksos.views.FactoryView;
 import com.eksos.views.InventoryView;
+import com.eksos.views.MrpView;
+import com.eksos.views.ProductsView;
 import com.eksos.views.SuppliersView;
 
 /**
@@ -37,12 +39,14 @@ public class EksosMenu extends javax.swing.JFrame {
         jButtonInventory = new javax.swing.JButton();
         jButtonFactory = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         ButtonCharts = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         ButtonMRP = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        ButtonMyProducts = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -55,7 +59,7 @@ public class EksosMenu extends javax.swing.JFrame {
         jLabel1.setText("Almacén");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, -1, -1));
 
-        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/compras.png"))); // NOI18N
+        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-shopping .png"))); // NOI18N
         ButtonProveedores.setContentAreaFilled(false);
         ButtonProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +68,7 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         jPanel1.add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
-        jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/almacen.png"))); // NOI18N
+        jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-almacen.png"))); // NOI18N
         jButtonInventory.setContentAreaFilled(false);
         jButtonInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +77,7 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, -1, -1));
 
-        jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/produccion.png"))); // NOI18N
+        jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-factory.png"))); // NOI18N
         jButtonFactory.setContentAreaFilled(false);
         jButtonFactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,48 +86,68 @@ public class EksosMenu extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Bahnschrift", 1, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Menu de Eksos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Gráficos");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 590, -1, -1));
+        jLabel2.setText("Bienvenido a Eksos");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fábrica");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, -1));
 
-        ButtonCharts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/graficas.png"))); // NOI18N
+        ButtonCharts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-charts.png"))); // NOI18N
         ButtonCharts.setContentAreaFilled(false);
         ButtonCharts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonChartsActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonCharts, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 450, -1, -1));
+        jPanel1.add(ButtonCharts, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Compras");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
 
-        ButtonMRP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/mrp.png"))); // NOI18N
+        ButtonMRP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-mrp.png"))); // NOI18N
         ButtonMRP.setContentAreaFilled(false);
         ButtonMRP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonMRPActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, -1, -1));
+        jPanel1.add(ButtonMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, 120, 120));
 
-        jLabel6.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("MRP");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, -1, -1));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Productos");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIconTextGap(0);
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 620, 175, 50));
+
+        ButtonMyProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-myproducts.png"))); // NOI18N
+        ButtonMyProducts.setContentAreaFilled(false);
+        ButtonMyProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonMyProductsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ButtonMyProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 500, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Gráficos");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 620, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("MRP");
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIconTextGap(0);
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 606, 120, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
@@ -153,21 +177,31 @@ public class EksosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonChartsActionPerformed
 
     private void ButtonMRPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMRPActionPerformed
-        // TODO add your handling code here:
+        MrpView frame = new MrpView();
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_ButtonMRPActionPerformed
+
+    private void ButtonMyProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMyProductsActionPerformed
+        ProductsView frame = new ProductsView();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonMyProductsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCharts;
     private javax.swing.JButton ButtonMRP;
+    private javax.swing.JButton ButtonMyProducts;
     private javax.swing.JButton ButtonProveedores;
     private javax.swing.JButton jButtonFactory;
     private javax.swing.JButton jButtonInventory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

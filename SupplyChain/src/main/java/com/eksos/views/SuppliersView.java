@@ -30,7 +30,6 @@ public class SuppliersView extends javax.swing.JFrame {
 
     private SuppliersController controller = new SuppliersController();
     private OrderController orderController = new OrderController();
-    private List<SupplierProduct> mpProducts = new ArrayList<>();
 
     /**
      * Creates new form Proveedores
@@ -84,6 +83,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldBatch = new javax.swing.JTextField();
         jTextFieldDeliveryTime = new javax.swing.JTextField();
         jLabelDeliveryTime = new javax.swing.JLabel();
+        jTextFieldSKU = new javax.swing.JTextField();
         jPanelNewOrder = new javax.swing.JPanel();
         jComboBoxMP = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -113,7 +113,6 @@ public class SuppliersView extends javax.swing.JFrame {
         setTitle("Proveedores");
         setBackground(new java.awt.Color(204, 51, 255));
         setMinimumSize(new java.awt.Dimension(1200, 800));
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelLeft.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 20));
@@ -214,9 +213,9 @@ public class SuppliersView extends javax.swing.JFrame {
         jTextFieldEmail.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jPanelSupplier.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 400, 40));
 
-        jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         jLabel5.setText("Nuevo proveedor");
-        jPanelSupplier.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanelSupplier.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 60));
 
         jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         jButtonCancel.setBorderPainted(false);
@@ -247,11 +246,11 @@ public class SuppliersView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descripción", "Medida", "Precio", "TS (semanas)", "Cant. x Lote"
+                "SKU", "Descripción", "Medida", "Precio", "TS (semanas)", "Cant. x Lote"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                true, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -264,9 +263,9 @@ public class SuppliersView extends javax.swing.JFrame {
         jTableProducts.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableProducts);
         if (jTableProducts.getColumnModel().getColumnCount() > 0) {
-            jTableProducts.getColumnModel().getColumn(2).setMinWidth(120);
-            jTableProducts.getColumnModel().getColumn(2).setPreferredWidth(120);
-            jTableProducts.getColumnModel().getColumn(2).setMaxWidth(120);
+            jTableProducts.getColumnModel().getColumn(3).setMinWidth(120);
+            jTableProducts.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jTableProducts.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
         jPanelSupplier.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 580, 370));
@@ -318,6 +317,9 @@ public class SuppliersView extends javax.swing.JFrame {
         jLabelDeliveryTime.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabelDeliveryTime.setText("Tiempo de Suministro");
         jPanelSupplier.add(jLabelDeliveryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 180, 32));
+
+        jTextFieldSKU.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelSupplier.add(jTextFieldSKU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 730, 180, 40));
 
         jLayeredPane.add(jPanelSupplier);
         jPanelSupplier.setBounds(0, 0, 1120, 800);
@@ -502,14 +504,16 @@ public class SuppliersView extends javax.swing.JFrame {
             SupplierProduct supplierProduct = new SupplierProduct();
             for (int column = 0; column < tableModel.getColumnCount(); column++) {
                 if (column == 0) {
-                    supplierProduct.setName(tableModel.getValueAt(row, column).toString());
+                    supplierProduct.setSKU(tableModel.getValueAt(row, column).toString());
                 } else if (column == 1) {
-                    supplierProduct.setDimensional(tableModel.getValueAt(row, column).toString());
+                    supplierProduct.setName(tableModel.getValueAt(row, column).toString());
                 } else if (column == 2) {
-                    supplierProduct.setPrice(Double.valueOf(tableModel.getValueAt(row, column).toString()));
+                    supplierProduct.setDimensional(tableModel.getValueAt(row, column).toString());
                 } else if (column == 3) {
-                    supplierProduct.setDeliveryTime(Integer.valueOf(tableModel.getValueAt(row, column).toString()));
+                    supplierProduct.setPrice(Double.valueOf(tableModel.getValueAt(row, column).toString()));
                 } else if (column == 4) {
+                    supplierProduct.setDeliveryTime(Integer.valueOf(tableModel.getValueAt(row, column).toString()));
+                } else if (column == 5) {
                     supplierProduct.setBatch(Integer.valueOf(tableModel.getValueAt(row, column).toString()));
                 }
             }
@@ -544,7 +548,7 @@ public class SuppliersView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNewProductActionPerformed
 
     private void jButtonStoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreProductActionPerformed
-        String data[] = {jTextFieldName.getText(),
+        String data[] = {jTextFieldSKU.getText(), jTextFieldName.getText(),
             jTextFieldDimensional.getText(), jTextFieldPrice.getText(),
             jTextFieldDeliveryTime.getText(), jTextFieldBatch.getText()};
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
@@ -684,6 +688,7 @@ public class SuppliersView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldPrice;
+    private javax.swing.JTextField jTextFieldSKU;
     private javax.swing.JTextField jTextFieldSupplier;
     private javax.swing.JTextField jTextFieldTel;
     // End of variables declaration//GEN-END:variables
