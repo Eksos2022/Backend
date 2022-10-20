@@ -7,6 +7,7 @@ package com.eksos.views;
 import com.eksos.EksosMenu;
 import com.eksos.controllers.ProductController;
 import com.eksos.controllers.StoreController;
+import com.eksos.models.Ingredient;
 import com.eksos.models.Product;
 import com.eksos.models.Store;
 import java.awt.Color;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Allecan
  */
 public class ProductsView extends javax.swing.JFrame {
-
+    
     private final ProductController productController = new ProductController();
     private final StoreController storeController = new StoreController();
 
@@ -75,7 +76,6 @@ public class ProductsView extends javax.swing.JFrame {
         jTextFieldBatch = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextFieldDeliveryTime = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jPanelProducts = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
 
@@ -251,14 +251,6 @@ public class ProductsView extends javax.swing.JFrame {
         jTextFieldDeliveryTime.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jPanelNewProduct.add(jTextFieldDeliveryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 120, 40));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanelNewProduct.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 150, -1, -1));
-
         jLayeredPane.add(jPanelNewProduct);
         jPanelNewProduct.setBounds(0, 0, 1120, 800);
 
@@ -313,17 +305,19 @@ public class ProductsView extends javax.swing.JFrame {
         int DT = Integer.valueOf(jTextFieldDeliveryTime.getText());
         int batch = Integer.valueOf(jTextFieldBatch.getText());
 
-        List<Store> ingredients = new ArrayList<>();
+        List<Ingredient> ingredients = new ArrayList<>();
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         if (tableModel.getRowCount() != 0) {
             for (int row = 0; row < tableModel.getRowCount(); row++) {
-                Store storeProduct = new Store();
-                storeProduct = storeController.getStoreProductBySKU(tableModel.getValueAt(row, 0).toString());
-                ingredients.add(storeProduct);
+                Ingredient ingredient = new Ingredient();
+                ingredient.setStoreProduct(storeController
+                        .getStoreProductBySKU(tableModel.getValueAt(row, 0).toString()));
+                ingredient.setAmount(Integer.valueOf(tableModel.getValueAt(row, 2).toString()));
+                ingredients.add(ingredient);
             }
             product.setIngredients(ingredients);
         }
-
+        
         if (productController.createProduct(product, DT, batch)) {
             System.out.println("Si se ingreso");
         } else {
@@ -346,15 +340,8 @@ public class ProductsView extends javax.swing.JFrame {
         jPanelNewProduct.requestFocus();
     }//GEN-LAST:event_jPanelNewProductMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Product product = productController.getProductBySKU("SP-B");
-        System.out.println(product.getIngredients().get(0).getSKU());
-        System.out.println(product.getIngredients().get(0).getName());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNewProduct;
@@ -390,7 +377,7 @@ public class ProductsView extends javax.swing.JFrame {
         jPanelProducts.setVisible(false);
         jComboBoxType.addItemListener(new TypeChangeListener());
     }
-
+    
     private void setUIProperties() {
         this.getContentPane().setBackground(Color.WHITE);
         jPanelNewProduct.setBackground(Color.WHITE);
@@ -405,9 +392,9 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonHome.setToolTipText("Regresar al menu");
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
     }
-
+    
     private class TypeChangeListener implements ItemListener {
-
+        
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -422,26 +409,26 @@ public class ProductsView extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private class ComboItem {
-
+        
         private String key;
         private String value;
-
+        
         public ComboItem(String key, String value) {
             this.key = key;
             this.value = value;
         }
-
+        
         @Override
         public String toString() {
             return value;
         }
-
+        
         public String getKey() {
             return key;
         }
-
+        
         public String getValue() {
             return value;
         }

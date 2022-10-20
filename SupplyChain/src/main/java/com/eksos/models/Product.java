@@ -24,6 +24,6 @@ public class Product {
     // Talvez referenciar solo el producto Store
     private String SKU;
     private String name;
-    @Reference
-    private List<Store> ingredients;
+//    @Reference
+    private List<Ingredient> ingredients;
 }
