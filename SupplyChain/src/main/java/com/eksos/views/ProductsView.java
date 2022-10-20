@@ -5,9 +5,19 @@
 package com.eksos.views;
 
 import com.eksos.EksosMenu;
+import com.eksos.controllers.ProductController;
+import com.eksos.controllers.StoreController;
+import com.eksos.models.Product;
+import com.eksos.models.Store;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +25,15 @@ import javax.swing.UIManager;
  */
 public class ProductsView extends javax.swing.JFrame {
 
+    private final ProductController productController = new ProductController();
+    private final StoreController storeController = new StoreController();
+
     /**
      * Creates new form ProductsView
      */
     public ProductsView() {
         initComponents();
+        this.setTitle("Producto");
         this.setLocationRelativeTo(null);
         setUIProperties();
         initalComponentsState();
@@ -39,11 +53,30 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonProducts = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
         jLayeredPane = new javax.swing.JLayeredPane();
-        jPanelMrpPlanning = new javax.swing.JPanel();
-        jTextFieldSupplier = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanelMrpSummary = new javax.swing.JPanel();
+        jPanelNewProduct = new javax.swing.JPanel();
+        jTextFieldProductName = new javax.swing.JTextField();
+        Title = new javax.swing.JLabel();
+        jLabelSKU = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextFieldAmount = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBoxType = new javax.swing.JComboBox<>();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonSaveProduct = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBoxIngrediens = new javax.swing.JComboBox<>();
+        jTextFieldSKU = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jButtonStoreProduct = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableProducts = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldBatch = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextFieldDeliveryTime = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanelProducts = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,32 +124,154 @@ public class ProductsView extends javax.swing.JFrame {
 
         getContentPane().add(jPanelLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 800));
 
-        jPanelMrpPlanning.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelNewProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelNewProductMouseClicked(evt);
+            }
+        });
+        jPanelNewProduct.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextFieldSupplier.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jPanelMrpPlanning.add(jTextFieldSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
+        jTextFieldProductName.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelNewProduct.add(jTextFieldProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 40));
 
-        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        jLabel5.setText("Nuevo Producto");
-        jPanelMrpPlanning.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        Title.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        Title.setText("Nuevo Producto");
+        jPanelNewProduct.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
-        jLabel6.setText("Nombre del proveedor");
-        jPanelMrpPlanning.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
+        jLabelSKU.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabelSKU.setText("PF-");
+        jPanelNewProduct.add(jLabelSKU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 30, 40));
 
-        jLayeredPane.add(jPanelMrpPlanning);
-        jPanelMrpPlanning.setBounds(0, 0, 1120, 800);
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel8.setText("Ingredientes");
+        jPanelNewProduct.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 200, 32));
 
-        jPanelMrpSummary.setFocusCycleRoot(true);
-        jPanelMrpSummary.setFocusTraversalPolicyProvider(true);
-        jPanelMrpSummary.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTextFieldAmount.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelNewProduct.add(jTextFieldAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 180, 40));
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel9.setText("Tipo de producto");
+        jPanelNewProduct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 180, 32));
+
+        jComboBoxType.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jComboBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Producto Final", "Sub Producto" }));
+        jPanelNewProduct.add(jComboBoxType, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 180, 40));
+
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
+        jButtonCancel.setBorderPainted(false);
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+        jPanelNewProduct.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 48, 48));
+
+        jButtonSaveProduct.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jButtonSaveProduct.setText("Guardar");
+        jButtonSaveProduct.setBorderPainted(false);
+        jButtonSaveProduct.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSaveProduct.setIconTextGap(16);
+        jButtonSaveProduct.setMargin(new java.awt.Insets(4, 8, 4, 8));
+        jButtonSaveProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveProductActionPerformed(evt);
+            }
+        });
+        jPanelNewProduct.add(jButtonSaveProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, 140, 48));
+
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel10.setText("Lote (Unidades)");
+        jPanelNewProduct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 130, 32));
+
+        jComboBoxIngrediens.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jComboBoxIngrediens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Ingrediente" }));
+        jPanelNewProduct.add(jComboBoxIngrediens, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 400, 40));
+
+        jTextFieldSKU.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelNewProduct.add(jTextFieldSKU, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 95, 40));
+
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel12.setText("SKU");
+        jPanelNewProduct.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 120, 32));
+
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel13.setText("Cantidad");
+        jPanelNewProduct.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 160, 32));
+
+        jButtonStoreProduct.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jButtonStoreProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow-right.png"))); // NOI18N
+        jButtonStoreProduct.setText("Agregar");
+        jButtonStoreProduct.setBorderPainted(false);
+        jButtonStoreProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jButtonStoreProduct.setIconTextGap(5);
+        jButtonStoreProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStoreProductActionPerformed(evt);
+            }
+        });
+        jPanelNewProduct.add(jButtonStoreProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 130, 40));
+
+        jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTableProducts.setForeground(new java.awt.Color(0, 0, 0));
+        jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "SKU", "Nombre", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableProducts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableProducts.setShowGrid(false);
+        jTableProducts.setShowHorizontalLines(true);
+        jTableProducts.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableProducts);
+
+        jPanelNewProduct.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 1040, 310));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel14.setText("Nombre del producto");
+        jPanelNewProduct.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 200, 32));
+
+        jTextFieldBatch.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelNewProduct.add(jTextFieldBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 120, 40));
+
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel15.setText("TS (Semanas)");
+        jPanelNewProduct.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 120, 32));
+
+        jTextFieldDeliveryTime.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelNewProduct.add(jTextFieldDeliveryTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 120, 40));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelNewProduct.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 150, -1, -1));
+
+        jLayeredPane.add(jPanelNewProduct);
+        jPanelNewProduct.setBounds(0, 0, 1120, 800);
+
+        jPanelProducts.setFocusCycleRoot(true);
+        jPanelProducts.setFocusTraversalPolicyProvider(true);
+        jPanelProducts.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jLabel11.setText("Resumen de MRP");
-        jPanelMrpSummary.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanelProducts.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
-        jLayeredPane.add(jPanelMrpSummary);
-        jPanelMrpSummary.setBounds(0, 0, 1120, 800);
+        jLayeredPane.add(jPanelProducts);
+        jPanelProducts.setBounds(0, 0, 1120, 800);
 
         getContentPane().add(jLayeredPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 1120, 800));
 
@@ -125,12 +280,19 @@ public class ProductsView extends javax.swing.JFrame {
 
     private void jButtonNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewProductActionPerformed
         initalComponentsState();
-        jPanelMrpPlanning.setVisible(true);
+        jPanelNewProduct.setVisible(true);
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+//        comboModel.addElement(new ComboItem("NA", "Seleccionar Product"));
+        for (Store storeProduct : storeController.getAllStoreProducts()) {
+            comboModel.addElement(new ComboItem(storeProduct.getSKU(),
+                    storeProduct.getName()));
+        }
+        jComboBoxIngrediens.setModel(comboModel);
     }//GEN-LAST:event_jButtonNewProductActionPerformed
 
     private void jButtonProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductsActionPerformed
         initalComponentsState();
-        jPanelMrpSummary.setVisible(true);
+        jPanelProducts.setVisible(true);
     }//GEN-LAST:event_jButtonProductsActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -139,34 +301,149 @@ public class ProductsView extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        initalComponentsState();
+        jPanelNewProduct.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jButtonSaveProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveProductActionPerformed
+        Product product = new Product();
+        product.setSKU(jLabelSKU.getText() + jTextFieldSKU.getText());
+        product.setName(jTextFieldProductName.getText());
+        int DT = Integer.valueOf(jTextFieldDeliveryTime.getText());
+        int batch = Integer.valueOf(jTextFieldBatch.getText());
+
+        List<Store> ingredients = new ArrayList<>();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
+        if (tableModel.getRowCount() != 0) {
+            for (int row = 0; row < tableModel.getRowCount(); row++) {
+                Store storeProduct = new Store();
+                storeProduct = storeController.getStoreProductBySKU(tableModel.getValueAt(row, 0).toString());
+                ingredients.add(storeProduct);
+            }
+            product.setIngredients(ingredients);
+        }
+
+        if (productController.createProduct(product, DT, batch)) {
+            System.out.println("Si se ingreso");
+        } else {
+            System.out.println("No se ingreso");
+        }
+        initalComponentsState();
+        jPanelNewProduct.setVisible(true);
+    }//GEN-LAST:event_jButtonSaveProductActionPerformed
+
+    private void jButtonStoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreProductActionPerformed
+        Object item = jComboBoxIngrediens.getSelectedItem();
+        String SKU = ((ComboItem) item).getKey();
+        String name = ((ComboItem) item).getValue();
+        String data[] = {SKU, name, jTextFieldAmount.getText()};
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
+        tableModel.addRow(data);
+    }//GEN-LAST:event_jButtonStoreProductActionPerformed
+
+    private void jPanelNewProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelNewProductMouseClicked
+        jPanelNewProduct.requestFocus();
+    }//GEN-LAST:event_jPanelNewProductMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Product product = productController.getProductBySKU("SP-B");
+        System.out.println(product.getIngredients().get(0).getSKU());
+        System.out.println(product.getIngredients().get(0).getName());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Title;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonNewProduct;
     private javax.swing.JButton jButtonProducts;
+    private javax.swing.JButton jButtonSaveProduct;
+    private javax.swing.JButton jButtonStoreProduct;
+    private javax.swing.JComboBox<String> jComboBoxIngrediens;
+    private javax.swing.JComboBox<String> jComboBoxType;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelSKU;
     private javax.swing.JLayeredPane jLayeredPane;
     private javax.swing.JPanel jPanelLeft;
-    private javax.swing.JPanel jPanelMrpPlanning;
-    private javax.swing.JPanel jPanelMrpSummary;
-    private javax.swing.JTextField jTextFieldSupplier;
+    private javax.swing.JPanel jPanelNewProduct;
+    private javax.swing.JPanel jPanelProducts;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableProducts;
+    private javax.swing.JTextField jTextFieldAmount;
+    private javax.swing.JTextField jTextFieldBatch;
+    private javax.swing.JTextField jTextFieldDeliveryTime;
+    private javax.swing.JTextField jTextFieldProductName;
+    private javax.swing.JTextField jTextFieldSKU;
     // End of variables declaration//GEN-END:variables
 
     private void initalComponentsState() {
-        jPanelMrpPlanning.setVisible(false);
-        jPanelMrpSummary.setVisible(false);
+        jPanelNewProduct.setVisible(false);
+        jPanelProducts.setVisible(false);
+        jComboBoxType.addItemListener(new TypeChangeListener());
     }
 
     private void setUIProperties() {
         this.getContentPane().setBackground(Color.WHITE);
-        jPanelMrpPlanning.setBackground(Color.WHITE);
-        jPanelMrpSummary.setBackground(Color.WHITE);
+        jPanelNewProduct.setBackground(Color.WHITE);
+        jPanelProducts.setBackground(Color.WHITE);
+        jButtonSaveProduct.setBackground(new Color(0x0C31A6));
+        jButtonSaveProduct.setForeground(Color.WHITE);
         UIManager.put("ToolTip.background", new Color(0xF8FAFF));
         UIManager.put("ToolTip.foreground", new Color(0x56595F));
         UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 14));
         jButtonNewProduct.setToolTipText("Nuevo Producto");
         jButtonProducts.setToolTipText("Ver productos");
         jButtonHome.setToolTipText("Regresar al menu");
+        jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
+    }
+
+    private class TypeChangeListener implements ItemListener {
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                Object item = event.getItem();
+                if (item.toString().equals("Producto Final")) {
+                    jLabelSKU.setText("PF-");
+                } else if (item.toString().equals("Sub Producto")) {
+                    jLabelSKU.setText("SP-");
+                } else {
+                    jLabelSKU.setText("");
+                }
+            }
+        }
+    }
+
+    private class ComboItem {
+
+        private String key;
+        private String value;
+
+        public ComboItem(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

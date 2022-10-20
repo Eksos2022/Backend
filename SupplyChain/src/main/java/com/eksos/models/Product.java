@@ -21,9 +21,9 @@ public class Product {
 
     @Id
     private ObjectId _id;
+    // Talvez referenciar solo el producto Store
+    private String SKU;
     private String name;
-    private Integer deliveryTime;
-    private Integer batch;
     @Reference
     private List<Store> ingredients;
 }

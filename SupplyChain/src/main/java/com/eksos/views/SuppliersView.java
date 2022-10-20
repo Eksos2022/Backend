@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.eksos.views;
 
 import com.eksos.EksosMenu;
@@ -758,7 +754,7 @@ public class SuppliersView extends javax.swing.JFrame {
         jComboBoxMP.addItemListener(new MPChangeListener());
     }
 
-    class SupplierChangeListener implements ItemListener {
+    private class SupplierChangeListener implements ItemListener {
 
         @Override
         public void itemStateChanged(ItemEvent event) {
@@ -774,7 +770,7 @@ public class SuppliersView extends javax.swing.JFrame {
         }
     }
 
-    class MPChangeListener implements ItemListener {
+    private class MPChangeListener implements ItemListener {
 
         @Override
         public void itemStateChanged(ItemEvent event) {
