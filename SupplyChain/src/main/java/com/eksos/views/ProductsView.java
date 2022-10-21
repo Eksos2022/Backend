@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.eksos.views;
 
 import com.eksos.EksosMenu;
@@ -25,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Allecan
  */
 public class ProductsView extends javax.swing.JFrame {
-    
+
     private final ProductController productController = new ProductController();
     private final StoreController storeController = new StoreController();
 
@@ -65,7 +61,7 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonCancel = new javax.swing.JButton();
         jButtonSaveProduct = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxIngrediens = new javax.swing.JComboBox<>();
+        jComboBoxIngredients = new javax.swing.JComboBox<>();
         jTextFieldSKU = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -183,9 +179,9 @@ public class ProductsView extends javax.swing.JFrame {
         jLabel10.setText("Lote (Unidades)");
         jPanelNewProduct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 130, 32));
 
-        jComboBoxIngrediens.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jComboBoxIngrediens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Ingrediente" }));
-        jPanelNewProduct.add(jComboBoxIngrediens, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 400, 40));
+        jComboBoxIngredients.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jComboBoxIngredients.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Ingrediente" }));
+        jPanelNewProduct.add(jComboBoxIngredients, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 400, 40));
 
         jTextFieldSKU.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jPanelNewProduct.add(jTextFieldSKU, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 95, 40));
@@ -271,20 +267,15 @@ public class ProductsView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewProductActionPerformed
-        initalComponentsState();
+        resetComponentsState();
         jPanelNewProduct.setVisible(true);
-        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
-//        comboModel.addElement(new ComboItem("NA", "Seleccionar Product"));
-        for (Store storeProduct : storeController.getAllStoreProducts()) {
-            comboModel.addElement(new ComboItem(storeProduct.getSKU(),
-                    storeProduct.getName()));
-        }
-        jComboBoxIngrediens.setModel(comboModel);
+        jPanelProducts.setVisible(false);
     }//GEN-LAST:event_jButtonNewProductActionPerformed
 
     private void jButtonProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductsActionPerformed
-        initalComponentsState();
+        resetComponentsState();
         jPanelProducts.setVisible(true);
+        jPanelNewProduct.setVisible(false);
     }//GEN-LAST:event_jButtonProductsActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -294,8 +285,7 @@ public class ProductsView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        initalComponentsState();
-        jPanelNewProduct.setVisible(true);
+        resetComponentsState();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonSaveProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveProductActionPerformed
@@ -317,18 +307,17 @@ public class ProductsView extends javax.swing.JFrame {
             }
             product.setIngredients(ingredients);
         }
-        
+
         if (productController.createProduct(product, DT, batch)) {
             System.out.println("Si se ingreso");
         } else {
             System.out.println("No se ingreso");
         }
-        initalComponentsState();
-        jPanelNewProduct.setVisible(true);
+        resetComponentsState();
     }//GEN-LAST:event_jButtonSaveProductActionPerformed
 
     private void jButtonStoreProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreProductActionPerformed
-        Object item = jComboBoxIngrediens.getSelectedItem();
+        Object item = jComboBoxIngredients.getSelectedItem();
         String SKU = ((ComboItem) item).getKey();
         String name = ((ComboItem) item).getValue();
         String data[] = {SKU, name, jTextFieldAmount.getText()};
@@ -348,7 +337,7 @@ public class ProductsView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonProducts;
     private javax.swing.JButton jButtonSaveProduct;
     private javax.swing.JButton jButtonStoreProduct;
-    private javax.swing.JComboBox<String> jComboBoxIngrediens;
+    private javax.swing.JComboBox<String> jComboBoxIngredients;
     private javax.swing.JComboBox<String> jComboBoxType;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -377,7 +366,27 @@ public class ProductsView extends javax.swing.JFrame {
         jPanelProducts.setVisible(false);
         jComboBoxType.addItemListener(new TypeChangeListener());
     }
-    
+
+    private void resetComponentsState() {
+        jTextFieldAmount.setText("");
+        jTextFieldBatch.setText("");
+        jTextFieldDeliveryTime.setText("");
+        jTextFieldProductName.setText("");
+        jTextFieldSKU.setText("");
+        jLabelSKU.setText("PF-");
+        jComboBoxIngredients.setSelectedIndex(0);
+        jComboBoxType.setSelectedIndex(0);
+        DefaultTableModel tableModelProducts = (DefaultTableModel) jTableProducts.getModel();
+        tableModelProducts.setRowCount(0);
+        jComboBoxIngredients.removeAllItems();
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+        for (Store storeProduct : storeController.getAllStoreProducts()) {
+            comboModel.addElement(new ComboItem(storeProduct.getSKU(),
+                    storeProduct.getName()));
+        }
+        jComboBoxIngredients.setModel(comboModel);
+    }
+
     private void setUIProperties() {
         this.getContentPane().setBackground(Color.WHITE);
         jPanelNewProduct.setBackground(Color.WHITE);
@@ -392,9 +401,9 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonHome.setToolTipText("Regresar al menu");
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
     }
-    
+
     private class TypeChangeListener implements ItemListener {
-        
+
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -409,26 +418,26 @@ public class ProductsView extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private class ComboItem {
-        
+
         private String key;
         private String value;
-        
+
         public ComboItem(String key, String value) {
             this.key = key;
             this.value = value;
         }
-        
+
         @Override
         public String toString() {
             return value;
         }
-        
+
         public String getKey() {
             return key;
         }
-        
+
         public String getValue() {
             return value;
         }

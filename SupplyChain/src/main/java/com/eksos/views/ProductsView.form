@@ -280,7 +280,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxIngrediens">
+            <Component class="javax.swing.JComboBox" name="jComboBoxIngredients">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="16" style="0"/>
