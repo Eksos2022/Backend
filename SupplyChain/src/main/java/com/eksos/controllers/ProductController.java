@@ -1,6 +1,7 @@
 package com.eksos.controllers;
 
 import com.eksos.db.MongoDS;
+import com.eksos.models.Ingredient;
 import com.eksos.models.Product;
 import com.eksos.models.Store;
 import dev.morphia.Datastore;
@@ -28,6 +29,15 @@ public class ProductController {
         storeProduct.setDeliveryTime(DT);
         storeProduct.setBatch(batch);
         storeController.createStoreProduct(storeProduct);
+        int ingredientsAmount = 0;
+        for (Ingredient ingredient : newProduct.getIngredients()) {
+            if (ingredient.getStoreProduct().getSKU().substring(0, 2).equals("SP")) {
+                Product ingredientProduct = getProductBySKU(ingredient.getStoreProduct().getSKU());
+                ingredientsAmount += ingredientProduct.getIngredients().size();
+            }
+            ingredientsAmount += 1;
+        }
+        newProduct.setTotalAmountOfIngredients(ingredientsAmount);
         return ds.save(newProduct) != null;
     }
 

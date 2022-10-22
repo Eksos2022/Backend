@@ -5,9 +5,9 @@
 package com.eksos.views;
 
 import com.eksos.EksosMenu;
+import com.eksos.controllers.MrpController;
 import com.eksos.controllers.ProductController;
 import com.eksos.models.Product;
-import com.eksos.models.Store;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
@@ -15,6 +15,7 @@ import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -33,7 +34,8 @@ public class MrpView extends javax.swing.JFrame {
     private List<JLabel> jLabelsList = new ArrayList<>();
     private List<JTextField> jTextFieldsList = new ArrayList<>();
     private final ProductController productController = new ProductController();
-
+    private final MrpController mrpController = new MrpController();
+    
     public MrpView() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -290,20 +292,16 @@ public class MrpView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonCreateMRPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateMRPActionPerformed
-        resetComponentsState();
-        DateFormat defaultLocalFormat = DateFormat.getDateInstance();
-        String startDate = defaultLocalFormat.format(jDateChooserStartDate.getDate());
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(jDateChooserStartDate.getDate());
-        int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
-        System.out.println(jDateChooserStartDate.getDate());
-        System.out.println(startDate);
-        System.out.println(weekOfYear);
+        Date startDate = jDateChooserStartDate.getDate();
         Object item = jComboBoxProducts.getSelectedItem();
         String SKU = ((ComboItem) item).getKey();
-        String name = ((ComboItem) item).getValue();
-        System.out.println(SKU);
-        System.out.println(name);
+        Integer mrpWeeksPlan = Integer.valueOf(jComboBoxWeeksPlan.getSelectedItem().toString().substring(0, 1));
+        List<String> demand = new ArrayList<>();
+        for (int i = 0; i < mrpWeeksPlan; i++) {
+            demand.add(jTextFieldsList.get(i).getText());
+        }
+        mrpController.createMRP(startDate, SKU, demand);
+        resetComponentsState();
     }//GEN-LAST:event_jButtonCreateMRPActionPerformed
 
     private void jPanelMrpPlanningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelMrpPlanningMouseClicked
@@ -374,7 +372,7 @@ public class MrpView extends javax.swing.JFrame {
         jTextFieldsList.add(jTextFieldWeek5);
         jTextFieldsList.add(jTextFieldWeek6);
     }
-
+    
     private void setUIProperties() {
         this.getContentPane().setBackground(Color.WHITE);
         jPanelMrpPlanning.setBackground(Color.WHITE);
@@ -388,7 +386,7 @@ public class MrpView extends javax.swing.JFrame {
         jButtonMrpSummary.setToolTipText("Resumen MRP");
         jButtonHome.setToolTipText("Regresar al menu");
     }
-
+    
     private void resetComponentsState() {
         jLabelWeek1.setVisible(false);
         jLabelWeek2.setVisible(false);
@@ -404,6 +402,7 @@ public class MrpView extends javax.swing.JFrame {
         jTextFieldWeek6.setVisible(false);
         jComboBoxWeeksPlan.setSelectedIndex(-1);
         jComboBoxProducts.removeAllItems();
+        jDateChooserStartDate.setDate(null);
         DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
         for (Product product : productController.getAllFinalProducts()) {
             comboModel.addElement(new ComboItem(product.getSKU(),
@@ -411,9 +410,9 @@ public class MrpView extends javax.swing.JFrame {
         }
         jComboBoxProducts.setModel(comboModel);
     }
-
+    
     private class WeekChangeListener implements ItemListener {
-
+        
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -430,26 +429,26 @@ public class MrpView extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private class ComboItem {
-
+        
         private String key;
         private String value;
-
+        
         public ComboItem(String key, String value) {
             this.key = key;
             this.value = value;
         }
-
+        
         @Override
         public String toString() {
             return value;
         }
-
+        
         public String getKey() {
             return key;
         }
-
+        
         public String getValue() {
             return value;
         }
