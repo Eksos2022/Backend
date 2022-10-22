@@ -2,6 +2,7 @@ package com.eksos.models;
 
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Property;
 import java.util.List;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -19,4 +20,6 @@ public class Product {
     private String SKU;
     private String name;
     private List<Ingredient> ingredients;
+    @Property("ingredientsAmount")
+    private Integer totalAmountOfIngredients;
 }
