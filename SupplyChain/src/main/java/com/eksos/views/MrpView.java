@@ -79,6 +79,8 @@ public class MrpView extends javax.swing.JFrame {
         jDateChooserStartDate = new com.toedter.calendar.JDateChooser();
         jPanelMrpSummary = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableProducts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -234,6 +236,31 @@ public class MrpView extends javax.swing.JFrame {
         jLabel11.setText("Resumen de MRP");
         jPanelMrpSummary.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
+        jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTableProducts.setForeground(new java.awt.Color(0, 0, 0));
+        jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "SKU", "Nombre", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableProducts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableProducts.setShowGrid(false);
+        jTableProducts.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableProducts);
+
+        jPanelMrpSummary.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 1040, 680));
+
         jLayeredPane.add(jPanelMrpSummary);
         jPanelMrpSummary.setBounds(0, 0, 1120, 800);
 
@@ -307,6 +334,8 @@ public class MrpView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelMrpPlanning;
     private javax.swing.JPanel jPanelMrpSummary;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldWeek1;
     private javax.swing.JTextField jTextFieldWeek2;
     private javax.swing.JTextField jTextFieldWeek3;
