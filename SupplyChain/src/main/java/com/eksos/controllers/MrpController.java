@@ -34,22 +34,65 @@ public class MrpController {
         MRP mrp = new MRP();
         mrp.setStartDate(strStartDate);
 
-        Product product = new Product();
-        product = productController.getProductBySKU(SKU);
-        Store storeProduct = new Store();
-        storeProduct = storeController.getStoreProductBySKU(SKU);
+        Product productPF = new Product();
+        productPF = productController.getProductBySKU(SKU);
+        Store storeProductPF = new Store();
+        storeProductPF = storeController.getStoreProductBySKU(SKU);
 
-        int ingredientsAmount = 0;
-        for (Ingredient ingredient : product.getIngredients()) {
-            if (ingredient.getStoreProduct().getSKU().substring(0, 2).equals("SP")) {
-                Product ingredientProduct = productController
-                        .getProductBySKU(ingredient.getStoreProduct().getSKU());
-                ingredientsAmount += ingredientProduct.getIngredients().size();
+        int totalMrpProductsPF = productPF.getTotalAmountOfIngredients();
+        List<MrpProduct> mrpProducts = new ArrayList<>();
+
+        MrpProduct mrpProductPF = new MrpProduct();
+        mrpProductPF.setSKU(SKU);
+        List<MrpAtomProduct> weeks = new ArrayList<>();
+        int cantWeeksPF = demand.size() + (storeProductPF.getDeliveryTime() - 1);
+        for (int i = 0; i < cantWeeksPF; i++) {
+            MrpAtomProduct productWeek = new MrpAtomProduct();
+            if (i == 0) {
+                productWeek.setWeek(currentWeekOfYear);
+                productWeek.setRequirement(Integer.valueOf(demand.get(i)));
+                productWeek.setProjectedInventory(storeProductPF.getTotalInventory()
+                        - storeProductPF.getStock());
+                productWeek.setNetRequirement(0);
+                productWeek.setReceiveProduct(0);
+                productWeek.setOrderProduct(0);
+                weeks.add(productWeek);
+            } else if (i > demand.size()-1) {
+                weeks.add(productWeek);
+            } else {
+                productWeek.setWeek(currentWeekOfYear + i);
+                productWeek.setRequirement(Integer.valueOf(demand.get(i)));
+                MrpAtomProduct tempProductWeek = weeks.get(i - 1);
+                int projectedInventory = (tempProductWeek.getProjectedInventory()
+                        + tempProductWeek.getReceiveProduct()) - tempProductWeek.getRequirement();
+                productWeek.setProjectedInventory(projectedInventory);
+                int netRequirement = productWeek.getRequirement()
+                        - productWeek.getProjectedInventory();
+                if (netRequirement < 0) {
+                    productWeek.setNetRequirement(0);
+                }
+                productWeek.setNetRequirement(netRequirement);
+                boolean bandera = true;
+                int order = storeProductPF.getBatch();
+                int multiplicativo = 1;
+                while (bandera == true) {
+                    if (order >= netRequirement) {
+                        bandera = false;
+                    } else {
+                        multiplicativo += 1;
+                        order = order * multiplicativo;
+                    }
+                }
+                productWeek.setReceiveProduct(order);
+
+                productWeek.setOrderProduct(0);
+                weeks.add(productWeek);
             }
-            ingredientsAmount += 1;
+
         }
-        
-        System.out.println(ingredientsAmount);
+        mrpProductPF.setWeeks(weeks);
+        mrpProducts.add(mrpProductPF);
+
 //        boolean flag = true;
 //        int amntMrpPds = 0;
 ////        while (flag = true) {
@@ -67,7 +110,6 @@ public class MrpController {
 //        } else {
 //
 //        }
-
 //        // primera pasada
 //        MrpAtomProduct mrpAtomProduct1 = new MrpAtomProduct();
 //        mrpAtomProduct1.setWeek(currentWeekOfYear);
