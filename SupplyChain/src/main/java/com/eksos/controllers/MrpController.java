@@ -42,36 +42,42 @@ public class MrpController {
         int totalMrpProductsPF = productPF.getTotalAmountOfIngredients();
         List<MrpProduct> mrpProducts = new ArrayList<>();
 
+        // -------------------------- Producto Final -------------------------- 
         MrpProduct mrpProductPF = new MrpProduct();
         mrpProductPF.setSKU(SKU);
         List<MrpAtomProduct> weeks = new ArrayList<>();
         int cantWeeksPF = demand.size() + (storeProductPF.getDeliveryTime() - 1);
         for (int i = 0; i < cantWeeksPF; i++) {
             MrpAtomProduct productWeek = new MrpAtomProduct();
+            weeks.add(productWeek);
+        }
+
+        for (int i = 0; i < cantWeeksPF; i++) {
             if (i == 0) {
-                productWeek.setWeek(currentWeekOfYear);
-                productWeek.setRequirement(Integer.valueOf(demand.get(i)));
-                productWeek.setProjectedInventory(storeProductPF.getTotalInventory()
+
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setWeek(currentWeekOfYear);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setRequirement(Integer.valueOf(demand.get(i)));
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setProjectedInventory(storeProductPF.getTotalInventory()
                         - storeProductPF.getStock());
-                productWeek.setNetRequirement(0);
-                productWeek.setReceiveProduct(0);
-                productWeek.setOrderProduct(0);
-                weeks.add(productWeek);
-            } else if (i > demand.size()-1) {
-                weeks.add(productWeek);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setNetRequirement(0);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setReceiveProduct(0);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setOrderProduct(0);
+
+            } else if (i > demand.size() - 1) {
+
             } else {
-                productWeek.setWeek(currentWeekOfYear + i);
-                productWeek.setRequirement(Integer.valueOf(demand.get(i)));
-                MrpAtomProduct tempProductWeek = weeks.get(i - 1);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setWeek(currentWeekOfYear + i);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setRequirement(Integer.valueOf(demand.get(i)));
+                MrpAtomProduct tempProductWeek = weeks.get(i);
                 int projectedInventory = (tempProductWeek.getProjectedInventory()
                         + tempProductWeek.getReceiveProduct()) - tempProductWeek.getRequirement();
-                productWeek.setProjectedInventory(projectedInventory);
-                int netRequirement = productWeek.getRequirement()
-                        - productWeek.getProjectedInventory();
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setProjectedInventory(projectedInventory);
+                int netRequirement = weeks.get((storeProductPF.getDeliveryTime() - 1) + i).getRequirement()
+                        - weeks.get((storeProductPF.getDeliveryTime() - 1) + i).getProjectedInventory();
                 if (netRequirement < 0) {
-                    productWeek.setNetRequirement(0);
+                    weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setNetRequirement(0);
                 }
-                productWeek.setNetRequirement(netRequirement);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setNetRequirement(netRequirement);
                 boolean bandera = true;
                 int order = storeProductPF.getBatch();
                 int multiplicativo = 1;
@@ -83,54 +89,18 @@ public class MrpController {
                         order = order * multiplicativo;
                     }
                 }
-                productWeek.setReceiveProduct(order);
-
-                productWeek.setOrderProduct(0);
-                weeks.add(productWeek);
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setReceiveProduct(order);
+                weeks.get(i - (storeProductPF.getDeliveryTime() - 1)).setOrderProduct(order);
+                weeks.get(i - (storeProductPF.getDeliveryTime() - 1))
+                        .setWeek(weeks.get((storeProductPF.getDeliveryTime() - 1) + i).getWeek() - storeProductPF.getDeliveryTime());
+                weeks.get((storeProductPF.getDeliveryTime() - 1) + i).setOrderProduct(0);
             }
 
         }
         mrpProductPF.setWeeks(weeks);
         mrpProducts.add(mrpProductPF);
-
-//        boolean flag = true;
-//        int amntMrpPds = 0;
-////        while (flag = true) {
-////            amntMrpPds = 
-////            System.out.println("S");
-////        }
-//
-//        MrpProduct mrpProduct = new MrpProduct();
-//        mrpProduct.setName(storeProduct.getName());
-//        mrpProduct.setSKU(storeProduct.getSKU());
-//        List<MrpAtomProduct> weeks = new ArrayList<>();
-//
-//        if (storeProduct.getSKU().substring(0, 2).equals("PF")) {
-//            System.out.println("A");
-//        } else {
-//
-//        }
-//        // primera pasada
-//        MrpAtomProduct mrpAtomProduct1 = new MrpAtomProduct();
-//        mrpAtomProduct1.setWeek(currentWeekOfYear);
-//        mrpAtomProduct1.setRequirement(Integer.valueOf(demand.get(0)));
-//        mrpAtomProduct1.setProjectedInventory(storeProduct.getTotalInventory()
-//                - storeProduct.getStock());
-//        mrpAtomProduct1.setNetRequirement(0);
-//        mrpAtomProduct1.setReceiveProduct(0);
-//        mrpAtomProduct1.setOrderProduct(0);
-//        weeks.add(mrpAtomProduct1);
-//
-//        // Segunda pasada
-//        MrpAtomProduct mrpAtomProduct2 = new MrpAtomProduct();
-//        mrpAtomProduct2.setWeek(currentWeekOfYear + 1);
-//        mrpAtomProduct2.setRequirement(Integer.valueOf(demand.get(0)));
-//        mrpAtomProduct2.setProjectedInventory(storeProduct.getTotalInventory()
-//                - storeProduct.getStock());
-//        mrpAtomProduct2.setNetRequirement(0);
-//        mrpAtomProduct2.setReceiveProduct(0);
-//        mrpAtomProduct2.setOrderProduct(0);
-//        weeks.add(mrpAtomProduct2);
+        // -------------------------- Producto Final --------------------------
+        
         return true;
     }
 }
