@@ -8,11 +8,16 @@ import com.eksos.models.Product;
 import com.eksos.models.Store;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,6 +50,7 @@ public class ProductsView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu = new javax.swing.JPopupMenu();
         jPanelLeft = new javax.swing.JPanel();
         jButtonNewProduct = new javax.swing.JButton();
         jButtonProducts = new javax.swing.JButton();
@@ -208,7 +214,6 @@ public class ProductsView extends javax.swing.JFrame {
         jPanelNewProduct.add(jButtonStoreProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 130, 40));
 
         jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jTableProducts.setForeground(new java.awt.Color(0, 0, 0));
         jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -330,6 +335,7 @@ public class ProductsView extends javax.swing.JFrame {
         String data[] = {SKU, name, jTextFieldAmount.getText()};
         DefaultTableModel tableModel = (DefaultTableModel) jTableProducts.getModel();
         tableModel.addRow(data);
+        jTextFieldAmount.setText("");
     }//GEN-LAST:event_jButtonStoreProductActionPerformed
 
     private void jPanelNewProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelNewProductMouseClicked
@@ -359,6 +365,7 @@ public class ProductsView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelNewProduct;
     private javax.swing.JPanel jPanelProducts;
+    private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldAmount;
@@ -407,7 +414,53 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonProducts.setToolTipText("Ver productos");
         jButtonHome.setToolTipText("Regresar al menu");
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
+                createMenuHabilitar(jPopupMenu);
+        jTableProducts.setComponentPopupMenu(jPopupMenu);
     }
+    
+            private void createMenuHabilitar(JPopupMenu jPopupMenu) {
+        JMenuItem disable = new JMenuItem("Eliminar Ingrediente");
+        disable.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Object[] botones = {"Aceptar", "Cancelar"};
+                int opcionElegida = JOptionPane.showOptionDialog(null, "Desea elminiar este ingrediente?", "Alerta",
+                        JOptionPane.YES_NO_CANCEL_OPTION, 2, null, botones, null);
+                if (opcionElegida == 0) {
+                    DefaultTableModel tblModel = (DefaultTableModel) jTableProducts.getModel();
+
+if(jTableProducts.getSelectedRowCount() == 1){
+
+    tblModel.removeRow(jTableProducts.getSelectedRow());
+    
+    
+}else{
+    if(jTableProducts.getRowCount()==0){
+        System.out.println("Seleccione una opcion válida");
+    }
+}
+                } else {
+                    System.out.println("Cancela cancelItem");
+                }
+            }
+        });
+        jPopupMenu.add(disable);
+    }
+            
+            private void DeleteSelectedItem (){
+                
+DefaultTableModel tblModel = (DefaultTableModel) jTableProducts.getModel();
+
+if(jTableProducts.getSelectedRowCount() == 1){
+
+    tblModel.removeRow(jTableProducts.getSelectedRow());
+    
+    
+}else{
+    if(jTableProducts.getRowCount()==0){
+        System.out.println("Seleccione una opcion válida");
+    }
+}
+}
 
     private class TypeChangeListener implements ItemListener {
 

@@ -10,6 +10,8 @@ import com.eksos.controllers.ProductController;
 import com.eksos.models.Product;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
@@ -19,8 +21,12 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -52,6 +58,7 @@ public class MrpView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu = new javax.swing.JPopupMenu();
         jPanelLeft = new javax.swing.JPanel();
         jButtonMrpPlanning = new javax.swing.JButton();
         jButtonMrpSummary = new javax.swing.JButton();
@@ -239,7 +246,6 @@ public class MrpView extends javax.swing.JFrame {
         jPanelMrpSummary.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jTableProducts.setForeground(new java.awt.Color(0, 0, 0));
         jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -332,6 +338,7 @@ public class MrpView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelMrpPlanning;
     private javax.swing.JPanel jPanelMrpSummary;
+    private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTextField jTextFieldWeek1;
@@ -385,7 +392,10 @@ public class MrpView extends javax.swing.JFrame {
         jButtonMrpPlanning.setToolTipText("Planificación MRP");
         jButtonMrpSummary.setToolTipText("Resumen MRP");
         jButtonHome.setToolTipText("Regresar al menu");
+
     }
+    
+
     
     private void resetComponentsState() {
         jLabelWeek1.setVisible(false);
