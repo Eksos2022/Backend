@@ -41,7 +41,7 @@ public class MrpView extends javax.swing.JFrame {
     private List<JTextField> jTextFieldsList = new ArrayList<>();
     private final ProductController productController = new ProductController();
     private final MrpController mrpController = new MrpController();
-    
+
     public MrpView() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -306,7 +306,11 @@ public class MrpView extends javax.swing.JFrame {
         for (int i = 0; i < mrpWeeksPlan; i++) {
             demand.add(jTextFieldsList.get(i).getText());
         }
-        mrpController.createMRP(startDate, SKU, demand);
+        if (mrpController.createMRP(startDate, SKU, demand)) {
+            System.out.println("SI Se ingreso");
+        } else {
+            System.out.println("no se ingreso");
+        }
         resetComponentsState();
     }//GEN-LAST:event_jButtonCreateMRPActionPerformed
 
@@ -379,7 +383,7 @@ public class MrpView extends javax.swing.JFrame {
         jTextFieldsList.add(jTextFieldWeek5);
         jTextFieldsList.add(jTextFieldWeek6);
     }
-    
+
     private void setUIProperties() {
         this.getContentPane().setBackground(Color.WHITE);
         jPanelMrpPlanning.setBackground(Color.WHITE);
@@ -394,9 +398,7 @@ public class MrpView extends javax.swing.JFrame {
         jButtonHome.setToolTipText("Regresar al menu");
 
     }
-    
 
-    
     private void resetComponentsState() {
         jLabelWeek1.setVisible(false);
         jLabelWeek2.setVisible(false);
@@ -420,9 +422,9 @@ public class MrpView extends javax.swing.JFrame {
         }
         jComboBoxProducts.setModel(comboModel);
     }
-    
+
     private class WeekChangeListener implements ItemListener {
-        
+
         @Override
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -439,26 +441,26 @@ public class MrpView extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private class ComboItem {
-        
+
         private String key;
         private String value;
-        
+
         public ComboItem(String key, String value) {
             this.key = key;
             this.value = value;
         }
-        
+
         @Override
         public String toString() {
             return value;
         }
-        
+
         public String getKey() {
             return key;
         }
-        
+
         public String getValue() {
             return value;
         }
