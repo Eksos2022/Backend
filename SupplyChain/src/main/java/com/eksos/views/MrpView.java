@@ -7,25 +7,24 @@ package com.eksos.views;
 import com.eksos.EksosMenu;
 import com.eksos.controllers.MrpController;
 import com.eksos.controllers.ProductController;
+import com.eksos.models.MRP;
+import com.eksos.models.MrpAtomProduct;
+import com.eksos.models.MrpProduct;
 import com.eksos.models.Product;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -89,7 +88,10 @@ public class MrpView extends javax.swing.JFrame {
         jPanelMrpSummary = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableProducts = new javax.swing.JTable();
+        jTableMRP = new javax.swing.JTable();
+        jComboBoxMRP = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jButtonCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -239,35 +241,51 @@ public class MrpView extends javax.swing.JFrame {
 
         jPanelMrpSummary.setFocusCycleRoot(true);
         jPanelMrpSummary.setFocusTraversalPolicyProvider(true);
+        jPanelMrpSummary.setMaximumSize(new java.awt.Dimension(1120, 800));
+        jPanelMrpSummary.setMinimumSize(new java.awt.Dimension(1120, 800));
+        jPanelMrpSummary.setPreferredSize(new java.awt.Dimension(1120, 800));
         jPanelMrpSummary.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel11.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Resumen de MRP");
-        jPanelMrpSummary.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanelMrpSummary.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 50));
 
-        jTableProducts.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jTableProducts.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMRP.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTableMRP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "SKU", "Nombre", "Cantidad"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            }
+        ));
+        jTableMRP.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableMRP.setShowGrid(false);
+        jTableMRP.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableMRP);
+
+        jPanelMrpSummary.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 1040, 550));
+
+        jComboBoxMRP.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jPanelMrpSummary.add(jComboBoxMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 270, 40));
+
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel10.setText("Seleccionar MRP");
+        jPanelMrpSummary.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 160, 32));
+
+        jButtonCargar.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jButtonCargar.setText("Cargar");
+        jButtonCargar.setBorderPainted(false);
+        jButtonCargar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCargar.setIconTextGap(16);
+        jButtonCargar.setMargin(new java.awt.Insets(4, 8, 4, 8));
+        jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCargarActionPerformed(evt);
             }
         });
-        jTableProducts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableProducts.setShowGrid(false);
-        jTableProducts.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTableProducts);
-
-        jPanelMrpSummary.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 1040, 680));
+        jPanelMrpSummary.add(jButtonCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 140, 40));
 
         jLayeredPane.add(jPanelMrpSummary);
         jPanelMrpSummary.setBounds(0, 0, 1120, 800);
@@ -279,11 +297,23 @@ public class MrpView extends javax.swing.JFrame {
 
     private void jButtonMrpPlanningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMrpPlanningActionPerformed
         resetComponentsState();
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+        for (Product product : productController.getAllFinalProducts()) {
+            comboModel.addElement(new ComboItem(product.getSKU(),
+                    product.getName()));
+        }
+        jComboBoxProducts.setModel(comboModel);
         jPanelMrpPlanning.setVisible(true);
     }//GEN-LAST:event_jButtonMrpPlanningActionPerformed
 
     private void jButtonMrpSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMrpSummaryActionPerformed
         resetComponentsState();
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
+        for (MRP mrp : mrpController.getAllMrp()) {
+            comboModel.addElement(new ComboItem(mrp.get_id().toString(),
+                    mrp.getStartDate()));
+        }
+        jComboBoxMRP.setModel(comboModel);
         jPanelMrpSummary.setVisible(true);
     }//GEN-LAST:event_jButtonMrpSummaryActionPerformed
 
@@ -318,15 +348,76 @@ public class MrpView extends javax.swing.JFrame {
         jPanelMrpPlanning.requestFocus();
     }//GEN-LAST:event_jPanelMrpPlanningMouseClicked
 
+    private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarActionPerformed
+        DefaultTableModel resetTableModel = new DefaultTableModel();
+        jTableMRP.setModel(resetTableModel);
+        Object item = jComboBoxMRP.getSelectedItem();
+        String id = ((ComboItem) item).getKey();
+        MRP mrp = mrpController.getMrpById(id);
+        DefaultTableModel tableModel = (DefaultTableModel) jTableMRP.getModel();
+        tableModel.addColumn("SKU");
+        tableModel.addColumn("Campos");
+        for (int i = mrp.getMinWeek(); i <= mrp.getMaxWeek(); i++) {
+            tableModel.addColumn(i);
+        }
+
+        for (MrpProduct mrpProduct : mrp.getMrpProducts()) {
+            // Aca es para las rows de recibido
+            String dataReceive[] = new String[jTableMRP.getColumnCount()];
+            dataReceive[0] = mrpProduct.getSKU();
+            dataReceive[1] = "RECEPCIÓN";
+            int firstWeek = mrpProduct.getWeeks().get(0).getWeek();
+            for (int j = 0; j < jTableMRP.getColumnCount(); j++) {
+                if (jTableMRP.getColumnName(j).equals(String.valueOf(firstWeek))) {
+                    firstWeek = j;
+                }
+            }
+
+            for (MrpAtomProduct week : mrpProduct.getWeeks()) {
+                if (week.getReceiveProduct() == 0) {
+                    dataReceive[firstWeek] = "";
+                } else {
+                    dataReceive[firstWeek] = String.valueOf(week.getReceiveProduct());
+                }
+                firstWeek += 1;
+            }
+            tableModel.addRow(dataReceive);
+
+            // Aca es para las rows de pedido
+            String dataOrder[] = new String[jTableMRP.getColumnCount()];
+            dataOrder[0] = "";
+            dataOrder[1] = "PEDIDO";
+            int firstWeekOrder = mrpProduct.getWeeks().get(0).getWeek();
+            for (int j = 0; j < jTableMRP.getColumnCount(); j++) {
+                if (jTableMRP.getColumnName(j).equals(String.valueOf(firstWeekOrder))) {
+                    firstWeekOrder = j;
+                }
+            }
+
+            for (MrpAtomProduct week : mrpProduct.getWeeks()) {
+                if (week.getOrderProduct() == 0) {
+                    dataOrder[firstWeekOrder] = "";
+                } else {
+                    dataOrder[firstWeekOrder] = String.valueOf(week.getOrderProduct());
+                }
+                firstWeekOrder += 1;
+            }
+            tableModel.addRow(dataOrder);
+        }
+    }//GEN-LAST:event_jButtonCargarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonCargar;
     private javax.swing.JButton jButtonCreateMRP;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonMrpPlanning;
     private javax.swing.JButton jButtonMrpSummary;
+    private javax.swing.JComboBox<String> jComboBoxMRP;
     private javax.swing.JComboBox<String> jComboBoxProducts;
     private javax.swing.JComboBox<String> jComboBoxWeeksPlan;
     private com.toedter.calendar.JDateChooser jDateChooserStartDate;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -344,7 +435,7 @@ public class MrpView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMrpSummary;
     private javax.swing.JPopupMenu jPopupMenu;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableProducts;
+    private javax.swing.JTable jTableMRP;
     private javax.swing.JTextField jTextFieldWeek1;
     private javax.swing.JTextField jTextFieldWeek2;
     private javax.swing.JTextField jTextFieldWeek3;
@@ -390,13 +481,32 @@ public class MrpView extends javax.swing.JFrame {
         jPanelMrpSummary.setBackground(Color.WHITE);
         jButtonCreateMRP.setBackground(new Color(0x0C31A6));
         jButtonCreateMRP.setForeground(Color.WHITE);
+        jButtonCargar.setBackground(new Color(0x0C31A6));
+        jButtonCargar.setForeground(Color.WHITE);
         UIManager.put("ToolTip.background", new Color(0xF8FAFF));
         UIManager.put("ToolTip.foreground", new Color(0x56595F));
         UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 14));
         jButtonMrpPlanning.setToolTipText("Planificación MRP");
         jButtonMrpSummary.setToolTipText("Resumen MRP");
         jButtonHome.setToolTipText("Regresar al menu");
-
+        jTableMRP.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
+        jTableMRP.setDefaultEditor(Object.class, null);
+        jTableMRP.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(row % 2 == 0 ? Color.WHITE : Color.decode("#CAE0FD"));
+                if (table.isRowSelected(row)) {
+                    setForeground(Color.WHITE);
+                    setBackground(Color.decode("#0C31A6"));
+                    setFont(jTableMRP.getFont().deriveFont(Font.BOLD, 18));
+                } else {
+                    setForeground(Color.black);
+                    setFont(jTableMRP.getFont().deriveFont(Font.PLAIN));
+                }
+                return c;
+            }
+        });
     }
 
     private void resetComponentsState() {
@@ -414,13 +524,10 @@ public class MrpView extends javax.swing.JFrame {
         jTextFieldWeek6.setVisible(false);
         jComboBoxWeeksPlan.setSelectedIndex(-1);
         jComboBoxProducts.removeAllItems();
+        jComboBoxMRP.removeAllItems();
         jDateChooserStartDate.setDate(null);
-        DefaultComboBoxModel comboModel = new DefaultComboBoxModel();
-        for (Product product : productController.getAllFinalProducts()) {
-            comboModel.addElement(new ComboItem(product.getSKU(),
-                    product.getName()));
-        }
-        jComboBoxProducts.setModel(comboModel);
+        jPanelMrpPlanning.setVisible(false);
+        jPanelMrpSummary.setVisible(false);
     }
 
     private class WeekChangeListener implements ItemListener {

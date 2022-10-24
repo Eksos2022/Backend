@@ -379,6 +379,7 @@ public class ProductsView extends javax.swing.JFrame {
         jPanelNewProduct.setVisible(false);
         jPanelProducts.setVisible(false);
         jComboBoxType.addItemListener(new TypeChangeListener());
+        jButtonProducts.setVisible(false);
     }
 
     private void resetComponentsState() {
@@ -414,11 +415,11 @@ public class ProductsView extends javax.swing.JFrame {
         jButtonProducts.setToolTipText("Ver productos");
         jButtonHome.setToolTipText("Regresar al menu");
         jTableProducts.getTableHeader().setFont(new Font("SansSerif", Font.PLAIN, 18));
-                createMenuHabilitar(jPopupMenu);
+        createMenuHabilitar(jPopupMenu);
         jTableProducts.setComponentPopupMenu(jPopupMenu);
     }
-    
-            private void createMenuHabilitar(JPopupMenu jPopupMenu) {
+
+    private void createMenuHabilitar(JPopupMenu jPopupMenu) {
         JMenuItem disable = new JMenuItem("Eliminar Ingrediente");
         disable.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -428,16 +429,15 @@ public class ProductsView extends javax.swing.JFrame {
                 if (opcionElegida == 0) {
                     DefaultTableModel tblModel = (DefaultTableModel) jTableProducts.getModel();
 
-if(jTableProducts.getSelectedRowCount() == 1){
+                    if (jTableProducts.getSelectedRowCount() == 1) {
 
-    tblModel.removeRow(jTableProducts.getSelectedRow());
-    
-    
-}else{
-    if(jTableProducts.getRowCount()==0){
-        System.out.println("Seleccione una opcion válida");
-    }
-}
+                        tblModel.removeRow(jTableProducts.getSelectedRow());
+
+                    } else {
+                        if (jTableProducts.getRowCount() == 0) {
+                            System.out.println("Seleccione una opcion válida");
+                        }
+                    }
                 } else {
                     System.out.println("Cancela cancelItem");
                 }
@@ -445,22 +445,6 @@ if(jTableProducts.getSelectedRowCount() == 1){
         });
         jPopupMenu.add(disable);
     }
-            
-            private void DeleteSelectedItem (){
-                
-DefaultTableModel tblModel = (DefaultTableModel) jTableProducts.getModel();
-
-if(jTableProducts.getSelectedRowCount() == 1){
-
-    tblModel.removeRow(jTableProducts.getSelectedRow());
-    
-    
-}else{
-    if(jTableProducts.getRowCount()==0){
-        System.out.println("Seleccione una opcion válida");
-    }
-}
-}
 
     private class TypeChangeListener implements ItemListener {
 

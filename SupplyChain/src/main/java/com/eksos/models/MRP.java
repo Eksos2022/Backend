@@ -18,4 +18,6 @@ public class MRP {
     private ObjectId _id;
     private String startDate;
     private List<MrpProduct> mrpProducts;
+    private Integer maxWeek;
+    private Integer minWeek;
 }

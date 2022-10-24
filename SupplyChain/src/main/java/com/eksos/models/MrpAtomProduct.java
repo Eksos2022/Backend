@@ -15,6 +15,6 @@ public class MrpAtomProduct {
     private Integer requirement;
     private Integer projectedInventory;
     private Integer netRequirement;
-    private Integer receiveProduct;
-    private Integer orderProduct;
+    private Integer receiveProduct = 0;
+    private Integer orderProduct = 0;
 }

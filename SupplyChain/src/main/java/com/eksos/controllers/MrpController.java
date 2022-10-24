@@ -8,11 +8,15 @@ import com.eksos.models.MrpProduct;
 import com.eksos.models.Product;
 import com.eksos.models.Store;
 import dev.morphia.Datastore;
+import dev.morphia.query.FindOptions;
+import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filters;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -23,6 +27,8 @@ public class MrpController {
     private final Datastore ds = MongoDS.getDatastore();
     private final ProductController productController = new ProductController();
     private final StoreController storeController = new StoreController();
+    private Integer maxWeek = 0;
+    private Integer minWeek = 100;
 
     public boolean createMRP(Date startDate, String SKU, List<String> demand) {
         Calendar cal = Calendar.getInstance();
@@ -57,6 +63,10 @@ public class MrpController {
             if (i == 0) {
 
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setWeek(currentWeekOfYear);
+                if (maxWeek < currentWeekOfYear) {
+                    maxWeek = currentWeekOfYear;
+                }
+
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setRequirement(Integer.valueOf(demand.get(i)));
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setProjectedInventory(storeProductPF.getTotalInventory()
                         - storeProductPF.getStock());
@@ -68,6 +78,9 @@ public class MrpController {
 
             } else {
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setWeek(currentWeekOfYear + i);
+                if (maxWeek < currentWeekOfYear + i) {
+                    maxWeek = currentWeekOfYear + i;
+                }
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setRequirement(Integer.valueOf(demand.get(i)));
                 MrpAtomProduct tempProductWeek = weeksPF.get(i);
                 int projectedInventory = (tempProductWeek.getProjectedInventory()
@@ -94,6 +107,9 @@ public class MrpController {
                 weeksPF.get(i - (storeProductPF.getDeliveryTime() - 1)).setOrderProduct(order);
                 weeksPF.get(i - (storeProductPF.getDeliveryTime() - 1))
                         .setWeek(weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).getWeek() - storeProductPF.getDeliveryTime());
+                if (minWeek > weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).getWeek() - storeProductPF.getDeliveryTime()) {
+                    minWeek = weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).getWeek() - storeProductPF.getDeliveryTime();
+                }
                 weeksPF.get((storeProductPF.getDeliveryTime() - 1) + i).setOrderProduct(0);
             }
 
@@ -101,7 +117,7 @@ public class MrpController {
         mrpProductPF.setWeeks(weeksPF);
         mrpProducts.add(mrpProductPF);
         // -------------------------- Producto Final --------------------------
-        
+
         List<MrpProduct> subProducts = new ArrayList<>();
         for (Ingredient ingredient : productPF.getIngredients()) {
             MrpProduct mrpIngredientProduct = new MrpProduct();
@@ -119,7 +135,21 @@ public class MrpController {
             }
         }
         mrp.setMrpProducts(mrpProducts);
+        mrp.setMaxWeek(maxWeek);
+        mrp.setMinWeek(minWeek);
         return ds.save(mrp) != null;
+    }
+
+    public List<MRP> getAllMrp() {
+        List<MRP> mrpList = ds.find(MRP.class)
+                .iterator(new FindOptions().sort(Sort.ascending("startDate")))
+                .toList();
+        return mrpList;
+    }
+
+    public MRP getMrpById(String id) {
+        MRP mrp = ds.find(MRP.class).filter(Filters.eq("_id", new ObjectId(id))).first();
+        return mrp;
     }
 
     private MrpProduct mrpIngredients(Ingredient ingredient, int demand, MrpProduct mrpProductPF) {
@@ -170,6 +200,9 @@ public class MrpController {
                 weeks.get(deliveryTime).setReceiveProduct(order);
                 weeks.get(0).setOrderProduct(order);
                 weeks.get(0).setWeek(fOrderPFWeek - deliveryTime);
+                if (minWeek > fOrderPFWeek - deliveryTime) {
+                    minWeek = fOrderPFWeek - deliveryTime;
+                }
                 weeks.get(deliveryTime).setOrderProduct(0);
             } else if (deliveryTime + i > weeks.size() - 1) {
 
@@ -207,11 +240,12 @@ public class MrpController {
                 weeks.get(deliveryTime + i).setReceiveProduct(order);
                 weeks.get(i).setOrderProduct(order);
                 weeks.get(i).setWeek((fOrderPFWeek + i) - deliveryTime);
+                if (minWeek > (fOrderPFWeek + i) - deliveryTime) {
+                    minWeek = (fOrderPFWeek + i) - deliveryTime;
+                }
                 weeks.get(deliveryTime + i).setOrderProduct(0);
             }
-
         }
-
         return mrpProduct;
     }
 }
