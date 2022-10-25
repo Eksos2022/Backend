@@ -49,15 +49,18 @@ public class EksosMenu extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1200, 800));
+        setMinimumSize(new java.awt.Dimension(1200, 800));
+        setPreferredSize(new java.awt.Dimension(1200, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Almacén");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(882, 349, -1, 45));
 
         ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-shopping .png"))); // NOI18N
         ButtonProveedores.setContentAreaFilled(false);
@@ -66,7 +69,7 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonProveedoresActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+        jPanel1.add(ButtonProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 221, 120, 120));
 
         jButtonInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-almacen.png"))); // NOI18N
         jButtonInventory.setContentAreaFilled(false);
@@ -75,7 +78,7 @@ public class EksosMenu extends javax.swing.JFrame {
                 jButtonInventoryActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, -1, -1));
+        jPanel1.add(jButtonInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 221, 120, 120));
 
         jButtonFactory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-factory.png"))); // NOI18N
         jButtonFactory.setContentAreaFilled(false);
@@ -84,17 +87,17 @@ public class EksosMenu extends javax.swing.JFrame {
                 jButtonFactoryActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, -1));
+        jPanel1.add(jButtonFactory, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 221, 120, 120));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Bienvenido a Eksos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, 68));
 
-        jLabel4.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fábrica");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 349, -1, 45));
 
         ButtonCharts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-charts.png"))); // NOI18N
         ButtonCharts.setContentAreaFilled(false);
@@ -103,12 +106,12 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonChartsActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonCharts, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
+        jPanel1.add(ButtonCharts, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 494, 120, 120));
 
-        jLabel5.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Compras");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 349, -1, 45));
 
         ButtonMRP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-mrp.png"))); // NOI18N
         ButtonMRP.setContentAreaFilled(false);
@@ -117,15 +120,15 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonMRPActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, 120, 120));
+        jPanel1.add(ButtonMRP, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 494, 120, 120));
 
-        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Productos");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel6.setIconTextGap(0);
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 620, 175, 50));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(877, 622, 175, 45));
 
         ButtonMyProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/menu-myproducts.png"))); // NOI18N
         ButtonMyProducts.setContentAreaFilled(false);
@@ -134,20 +137,20 @@ public class EksosMenu extends javax.swing.JFrame {
                 ButtonMyProductsActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonMyProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 500, -1, -1));
+        jPanel1.add(ButtonMyProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 494, 120, 120));
 
-        jLabel7.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Gráficos");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 620, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 622, -1, 45));
 
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 32)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("MRP");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel8.setIconTextGap(0);
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 606, 120, 50));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 622, 120, 45));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
